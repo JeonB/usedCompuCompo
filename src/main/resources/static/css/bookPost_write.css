@@ -1,0 +1,33 @@
+#editorForm {
+    width:100%;
+    max-width:800px;
+    height:100%;
+    padding:20px 0px;
+    margin:auto;
+}
+
+#editorForm .imgRow { width:100%; height:400px; }
+#editorForm .row { margin:10px 0px; }
+#editorForm .col, #editorForm .col-3 { margin:0px; padding:0px; }
+#editorForm .bookNameRow input { font-size:x-large; }
+#editorForm #bookDescription { height:200px; padding-top:10px; padding-bottom:10px; }
+
+
+
+
+#editorForm .textRow .row { position:relative; }
+#editorForm .textRow .invalid-tooltip {
+    display:none;
+    position:absolute;
+    width:fit-content;
+}
+.ani {
+    display:block!important;
+    animation: fadeout 2s ease-out;
+    animation-fill-mode: forwards;
+}
+@KeyFrames fadeout {
+    from{ opacity:1; }
+    to { opacity:0; }
+}
+

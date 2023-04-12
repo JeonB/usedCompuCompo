@@ -1,0 +1,65 @@
+.banner{
+    width:100%;
+    height:300px;
+    background-image: url('../img/index.jpg');
+    background-size:cover;
+    background-repeat:no-repeat;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.banner:before{
+    width:100%;
+    height:300px;
+    position:absolute;
+    content: "";
+    opacity: 0.3;
+    background-color: #000;
+}
+.banner * {
+    position:relative;
+    text-align:center;
+}
+.banner .title {  color:white; }
+.banner .big{ font-size:20px; }
+.banner .mid{ font-size:35px; }
+.banner input{
+    margin-top:13px;
+    border:2px solid #8C8C8C;
+    border-radius:20px;
+    padding:10px 100px;
+}
+.banner input:focus{ outline:none; }
+
+
+
+.indexSlider{ height:300px; font-size:0.9em; }
+.indexSlider .swiper-cover{ height:85%!important; }
+.indexSlider img{ object-fit:cover; height:75%; width:100%; }
+.indexSlider .card-body{ height:25%; }
+.indexSlider .col { height:100%; }
+.indexSlider .col .card { height:100%; text-decoration:none; color:black; }
+
+
+
+@media screen and (max-width: 768px) {
+    .banner{ height:250px; }
+    .banner:before { height:250px; }
+    .banner .big{ font-size:15px; }
+    .banner .mid{ font-size:35px; margin-top:20px;}
+}
+
+@media screen and (max-width: 600px) {
+    .banner input{
+        padding:10px 65px;
+        margin-right:5px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .banner input{
+        padding:10px 35px;
+        margin-right:5px;
+    }
+}

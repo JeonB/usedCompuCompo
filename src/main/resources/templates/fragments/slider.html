@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="fragments/head :: head('') "></div>
+    <div th:fragment="slider-head">
+        <link href="slider.css" th:href="@{/css/slider.css}" rel="stylesheet">
+        <link href="slider.css" th:href="@{/css/previewSlider.css}" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    </div>
+    
+</head>
+<body>
+
+
+<div class="swiper-cover" th:fragment="slider(swiperName, bookPostList)">
+    <div class="swiper " th:id="${swiperName}">
+        <div class="swiper-wrapper">
+            <th:block th:each="bookPost : ${bookPostList}">
+                <div class="swiper-slide">
+                    <div class="col">
+                        <a class="card shadow-sm" th:href="@{'/bookPost/detail/'+${bookPost.id}}">
+                            <img class="swiper-lazy" th:if="${bookPost.thumbFileName != null}"
+                                 th:src="@{/bookPost/getImage/{imgName}(imgName=${bookPost.thumbFileName})}">
+                            <img class="swiper-lazy" th:if="${bookPost.thumbFileName == null}"
+                                 src="https://plchldr.co/i/245x180">
+                            <div class="card-body" style="padding:0.5rem;">
+                                <p class="card-text" style="text-align:left;">
+                                    <span th:text="${bookPost.bookName}"></span> <br>
+                                    <span th:text="${bookPost.bookPrice}+'원'"></span>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev-custom " th:id="prev_+${swiperName}">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        </svg>
+    </div>
+    <div class="swiper-button-next-custom " th:id="next_+${swiperName}">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+        </svg>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div th:fragment="previewSlider(swiperId, fileList)" class="previewSlider">
+    <div class="swiper" th:id="${swiperId}">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide card shadow-sm" th:each="file : ${fileList}">
+                <img class="slideImg" th:src="@{/bookPost/getImage/{imgName}(imgName=${file.fileName})}">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:fragment="previewSliderList(swiperId, fileList)" class="previewSliderList">
+    <div class="swiper-cover">
+        <div class="swiper" th:id="${swiperId}">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide card shadow-sm" th:each="file : ${fileList}">
+                    <img class="slideImg" th:src="@{/bookPost/getImage/{imgName}(imgName=${file.fileName})}">
+                </div>
+            </div>
+        </div>
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev-custom " th:id="prev_+${swiperName}" style="left:-15px;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+            </svg>
+        </div>
+        <div class="swiper-button-next-custom " th:id="next_+${swiperName}" style="right:-15px;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+            </svg>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div th:fragment="previewSlider-write(swiperName, fileList)" class="previewSlider write">
+    <div class="swiper" th:id="${swiperName}">
+        <div class="swiper-wrapper">
+
+            <th:block th:if="${fileList} == null">  <!--/* 입력 시 */-->
+                <div class="swiper-slide card shadow-sm remove-position">
+                    <div th:id="'removeSlide-'+${swiperName}" class="removeSlideImg">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <img class="slideImg" src="https://plchldr.co/i/300x300">
+                </div>
+            </th:block>
+
+            <th:block th:if="${fileList} != null">  <!--/* 수정 시 */-->
+                <div class="swiper-slide card shadow-sm remove-position" th:each="file : ${fileList}">
+                    <div th:id="'removeSlide-'+${swiperName}" class="removeSlideImg">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <img class="slideImg" th:src="@{/bookPost/getImage/{imgName}(imgName=${file.fileName})}">
+                </div>
+            </th:block>
+
+        </div>
+    </div>
+</div>
+
+
+<div th:fragment="previewSliderList-write(swiperName, fileList)" class="previewSliderList write">
+    <div class="swiper-cover">
+        <div class="swiper" th:id="${swiperName}">
+            <div class="swiper-wrapper">
+
+                <th:block th:if="${fileList} != null">  <!--/* 수정 시 */-->
+                    <div class="swiper-slide card shadow-sm" th:each="file : ${fileList}">
+                        <img class="slideImg"
+                             th:src="@{/bookPost/getImage/{imgName}(imgName=${file.fileName})}">
+                    </div>
+                </th:block>
+
+                 <!--/* 입력 시 */-->
+                    <div class="swiper-slide card shadow-sm">
+                        <img class="addSlideImg" th:id="'addSlideImg-'+${swiperName}"
+                             th:src="@{/img/smallsliderplus.jpg}">
+                    </div>
+
+            </div>
+        </div>
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev-custom " th:id="prev_+${swiperName}" style="left:-15px;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+            </svg>
+        </div>
+        <div class="swiper-button-next-custom " th:id="next_+${swiperName}" style="right:-15px;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+            </svg>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div th:fragment="slider-script">
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <script th:src="@{/js/slider.js}"></script>
+    <script th:src="@{/js/previewSlider.js}"></script>
+</div>
+
+</body>
+</html>

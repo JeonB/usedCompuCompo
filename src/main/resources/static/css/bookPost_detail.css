@@ -1,0 +1,58 @@
+#viewForm {
+    width:100%;
+    max-width:800px;
+    height:100%;
+    padding:20px 0px;
+    margin:auto;
+    font-size:0.9em;
+}
+
+#viewForm .imgRow { width:100%; height:400px; /*background-color:black;*/ }
+
+
+#viewForm .bookNameRow { border-bottom:1px solid #ced4da; }
+#viewForm .bookNameRow h2 { font-weight:bold; }
+/*#viewForm .col-3 { text-align:center; }*/
+#viewForm .row { margin:10px 0px; }
+#viewForm .row:first-of-type { margin:0px; }
+#viewForm .bookDescriptionRow {
+    height:200px;
+    border-top:1px solid #ced4da;
+}
+#viewForm .bookDescriptionRow .col { padding-top:10px; padding-bottom:10px; }
+#viewForm .bookCountsRow{
+    border-bottom:1px solid #ced4da;
+}
+#viewForm .commentWrite { margin-top:20px; }
+#viewForm .commentWrite textarea{
+    width:100%;
+    overflow-x:hidden;
+    overflow-y:scroll;
+    border:1px;
+    resize:none;
+    background-color:#f5f5f5;
+}
+#viewForm .createTime { text-align:right; }
+#viewForm .createTime span { font-size:small; vertical-align:top; }
+
+#commentList .commentLink {
+    font-size:0.8em;
+    cursor:pointer;
+    color:blue;
+    text-decoration:underline;
+    padding:0.1rem 0.3rem;
+}
+
+
+#commentList .commentWrapper { padding:0px; }
+
+.commentBtn{ margin-top:0px!important; }
+.mainComtWrapper { border-top:1px solid #ced4da; }
+
+
+@media screen and (max-width:800px){ /*태블릿*/
+
+}
+@media screen and (max-width:800px){ /*모바일*/
+
+}

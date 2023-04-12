@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="thwjd.usedbook.repository.MemberRepositoryMapper">
+    <select id="findById" resultType="Member" parameterType="Long">
+        select * from member where id = #{memberId}
+    </select>
+    <!-- 전체칼럼을 조회하는 것이니 각각의 setter를 호출한다.
+      칼럼에 맞는 setter가 없으면 저장되지 않는다.
+      칼럼명(PNO)과 setter명(setNo())이 다르다면 PNO as NO 와 같이 작성한다.
+      //https://atoz-develop.tistory.com/entry/MyBatis-%EC%84%A4%EC%A0%95-%ED%8C%8C%EC%9D%BC-SQL-Mapper-%EC%9E%91%EC%84%B1-%EB%B0%A9%EB%B2%95
+
+      Member findById(Long findId);
+      파라미터 1개는 매개변수명 달라도 처리됨
+    -->
+
+    <insert id="save" parameterType="Member" useGeneratedKeys="true" keyProperty="id">
+        insert into member values(#{id}, #{email}, #{name}, #{password})
+    </insert>
+    <!-- Member의 id 필드 안으로 값이 저절로 들어간다.-->
+    <!-- java단에서 Member객체의 id값을 보면 값이 들어있을 것이다-->
+
+
+    <select id="findByEmailAndName" resultType="Member" parameterType="map">
+        select * from member where email = #{email} and name = #{name}
+    </select>
+    <!-- Optional<Member> findByEmailAndName(String email, String name);
+    매개변수명 같게 처리
+     -->
+
+</mapper>

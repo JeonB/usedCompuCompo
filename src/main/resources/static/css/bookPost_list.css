@@ -1,0 +1,23 @@
+
+table { vertical-align: middle; font-size:0.85rem; }
+thead tr th{ text-align:center; vertical-align:middle; }
+tbody tr td { vertical-align:middle; }
+
+#bookname, #writeremail, #createtime{ pointer:cursor; }
+
+.col1{ text-align:center; width:10%; font-size:0.8rem; padding:0px!important; vertical-align:middle; }
+
+.col3{ width:20%; }
+.col4{ text-align:center; width:15%; padding:0px!important; }
+.col4 span{ font-size:0.7rem; }
+.col5{ text-align:center; width:10%; font-size:0.8rem; padding:0px!important; }
+
+.search { height:30px; }
+.search select { font-size:0.8em; padding:3px 10px;}
+.search input { padding:3px 10px; }
+
+
+@media screen and (max-width: 768px) {
+    .col1{ width:15%; }
+    .col5{ width:15%; }
+}

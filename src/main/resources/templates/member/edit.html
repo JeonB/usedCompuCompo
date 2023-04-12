@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="fragments/head :: head('회원정보') "></th:block>
+  <style>
+    .row{
+      width:inherit;      margin-left:0px;      margin-right:0px;
+      border:1px solid #a8a8a8;       border-bottom:0px;
+    }
+    .col{ padding:10px; }
+    .col:nth-child(2n){  border-left:1px solid #a8a8a8;  }
+    .row:last-of-type{  border-bottom:1px solid #a8a8a8;  }
+  </style>
+</head>
+<body>
+<div th:replace="fragments/nav :: menu('')"></div>
+
+
+<div class="container d-flex justify-content-center p-5 pt-0">
+  <form style="width:400px;" th:action="@{/member/edit}" method="post" id="editForm" >
+    <h1 style="text-align:center; font-weight:bold; margin-top:40px;">회원정보수정</h1><br>
+
+    <div class="row">
+      <div class="col text-center">이메일 </div>
+      <div class="col col-9" id="email" th:text="${member.email}" ></div>
+      <input type="hidden" name="email" th:value="${member.email}" >
+    </div>
+
+    <div class="row">
+      <div class="col text-center">닉네임 </div>
+      <div class="col col-9">
+        <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" th:value="${member.name}">
+        <div id="nameHelp" style="display:none;">이름을 확인해주세요</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col text-center">현재 비밀번호 </div>
+      <div class="col col-9">
+        <input type="password" class="form-control" id="oldPassword" name="oldPassword" aria-describedby="oldPasswordHelp">
+        <div id="oldPasswordHelp" style="display:none;">비밀번호를 확인해주세요</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col text-center">새 비밀번호(선택입력)</div>
+      <div class="col col-9">
+        <input type="password" class="form-control" id="password" name="password" aria-describedby="passwordHelp">
+        <div id="passwordHelp" style="display:none;">비밀번호를 확인해주세요</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col text-center">새 비밀번호확인(선택입력)</div>
+      <div class="col col-9">
+        <input type="text" class="form-control" id="passwordConfirm" name="passwordConfirm" aria-describedby="passwordConfirmHelp">
+        <div id="passwordConfirmHelp" style="display:none;">비밀번호가 일치하지 않습니다</div>
+      </div>
+    </div>
+
+    <button class="w-100 mb-2 mt-4 btn btn-lg rounded-4 btn-primary" type="button" onclick="register()">회원정보 수정</button>
+  </form>
+
+</div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script th:src="@{/js/member_edit.js}"></script>
+</body>
+</html>
