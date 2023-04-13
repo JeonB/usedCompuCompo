@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.multipart.MultipartFile;
-import thwjd.usedcompu.entity.BookPost;
-import thwjd.usedcompu.entity.BookPostFile;
+import thwjd.usedcompu.entity.CompuPost;
+import thwjd.usedcompu.entity.CompuPostFile;
 import thwjd.usedcompu.entity.Pagination;
 import thwjd.usedcompu.entity.ValidCheckResponse;
-import thwjd.usedcompu.repository.BookPostFileRepositoryMapper;
-import thwjd.usedcompu.repository.BookPostRepositoryMapper;
+import thwjd.usedcompu.repository.CompuPostFileRepositoryMapper;
+import thwjd.usedcompu.repository.CompuPostRepositoryMapper;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,15 +31,15 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-public class BookPostService {
+public class CompuPostService {
 
-    @Autowired BookPostRepositoryMapper bookPostMapper;
-    @Autowired BookPostFileRepositoryMapper bookPostFileMapper;
+    @Autowired CompuPostRepositoryMapper compuPostMapper;
+    @Autowired CompuPostFileRepositoryMapper compuPostFileMapper;
 
-    public List newBookPostValidCheck(BookPost bookPost, BindingResult bindingResult){
+    public List newCompuPostValidCheck(CompuPost compuPost, BindingResult bindingResult){
         List<ValidCheckResponse> response = new ArrayList<>();
 
-        String[] fields = {"bookName", "bookCategory", "bookPrice", "bookDescription"};
+        String[] fields = {"compuName", "compuCategory", "compuPrice", "compuDescription"};
         //defaultErrorAdd
         for (String field : fields) {
             if(bindingResult.hasFieldErrors(field)){
@@ -53,8 +53,8 @@ public class BookPostService {
         }
 
         //custom
-        if(bookPost.getBookCategory() == null){
-            response.add(new ValidCheckResponse(false, "bookCategory", "값을 선택해주세요"));
+        if(compuPost.getCompuCategory() == null){
+            response.add(new ValidCheckResponse(false, "compuCategory", "값을 선택해주세요"));
         }
 
 //        for (String field : fields) {
@@ -66,12 +66,12 @@ public class BookPostService {
     }
 
 
-    public void fileSave(BookPost bookPost) throws IOException {
-        //String uploadPath = Paths.get("D:", "projectEn", "usedbook", "src", "main", "resources", "userUploadImg").toString();
-        String uploadPath = Paths.get("D:", "projectEn", "usedbook", "userUploadImg").toString();
+    public void fileSave(CompuPost compuPost) throws IOException {
+        //String uploadPath = Paths.get("D:", "projectEn", "usedcompu", "src", "main", "resources", "userUploadImg").toString();
+        String uploadPath = Paths.get("D:", "projectEn", "usedcompu", "userUploadImg").toString();
 
         int order = 10;
-        for (MultipartFile multipartFile : bookPost.getFileList()) {
+        for (MultipartFile multipartFile : compuPost.getFileList()) {
             UUID uuid = UUID.randomUUID();
             String filename = uuid + "_" + order + "_" + multipartFile.getOriginalFilename();
             Path savePath = Paths.get(uploadPath + File.separator + filename).toAbsolutePath();
@@ -82,13 +82,13 @@ public class BookPostService {
             //Embedded Tomcat을 컨테이너로 사용할 경우 DiskFileItem.write()가 실제 역할을 수행한다.
             // I/O 사용을 최소화하기 위해 파일 이동을 시도하며, 이동이 불가능할 경우 파일 복사를 진행한다.
 
-            BookPostFile bookPostFile = new BookPostFile(
-                    bookPost.getId(),
-                    bookPost.getWriterEmail(),
+            CompuPostFile compuPostFile = new CompuPostFile(
+                    compuPost.getId(),
+                    compuPost.getWriterEmail(),
                     uploadPath,
                     filename
             );
-            bookPostFileMapper.save(bookPostFile);
+            compuPostFileMapper.save(compuPostFile);
             order--;
         }
     }
@@ -96,7 +96,7 @@ public class BookPostService {
 
 
     public ResponseEntity<Resource> fileFoundTest(String imgName) throws IOException {
-        String uploadPath = Paths.get("D:", "projectEn", "usedbook", "userUploadImg").toString();
+        String uploadPath = Paths.get("D:", "projectEn", "usedcompu", "userUploadImg").toString();
         Resource resource = new FileSystemResource(uploadPath + File.separator + imgName);
 
         if(!resource.exists()){
@@ -111,24 +111,24 @@ public class BookPostService {
     }
 
 
-    public void fileUpdate(BookPost bookPost) throws IOException {
-        //String uploadPath = Paths.get("D:", "projectEn", "usedbook", "src", "main", "resources", "userUploadImg").toString();
-        String uploadPath = Paths.get("D:", "projectEn", "usedbook", "userUploadImg").toString();
+    public void fileUpdate(CompuPost compuPost) throws IOException {
+        //String uploadPath = Paths.get("D:", "projectEn", "usedcompu", "src", "main", "resources", "userUploadImg").toString();
+        String uploadPath = Paths.get("D:", "projectEn", "usedcompu", "userUploadImg").toString();
 
-        List<BookPostFile> byId = bookPostFileMapper.findById(bookPost.getId());
+        List<CompuPostFile> byId = compuPostFileMapper.findById(compuPost.getId());
         int order = 10 - byId.size() -1;
 
-        List<String> removeFileList = bookPost.getRemoveFileList();
+        List<String> removeFileList = compuPost.getRemoveFileList();
         if(removeFileList != null){
             for (String removeFile : removeFileList) {
-                String temp = removeFile.replace("/bookPost/getImage/", "");
+                String temp = removeFile.replace("/compuPost/getImage/", "");
                 temp = URLDecoder.decode(temp, StandardCharsets.UTF_8);
-                bookPostFileMapper.removeFile(bookPost.getId(), temp);
+                compuPostFileMapper.removeFile(compuPost.getId(), temp);
             }
         }
 
-        if(bookPost.getFileList() != null){
-            for (MultipartFile multipartFile : bookPost.getFileList()) {
+        if(compuPost.getFileList() != null){
+            for (MultipartFile multipartFile : compuPost.getFileList()) {
                 UUID uuid = UUID.randomUUID();
                 String filename = uuid + "_" + order + "_" + multipartFile.getOriginalFilename();
                 Path savePath = Paths.get(uploadPath + File.separator + filename).toAbsolutePath();
@@ -139,24 +139,24 @@ public class BookPostService {
                 //Embedded Tomcat을 컨테이너로 사용할 경우 DiskFileItem.write()가 실제 역할을 수행한다.
                 // I/O 사용을 최소화하기 위해 파일 이동을 시도하며, 이동이 불가능할 경우 파일 복사를 진행한다.
 
-                BookPostFile bookPostFile = new BookPostFile(
-                        bookPost.getId(),
-                        bookPost.getWriterEmail(),
+                CompuPostFile compuPostFile = new CompuPostFile(
+                        compuPost.getId(),
+                        compuPost.getWriterEmail(),
                         uploadPath,
                         filename
                 );
-                bookPostFileMapper.save(bookPostFile);
+                compuPostFileMapper.save(compuPostFile);
                 order--;
             }
         }
 
     }
 
-    public void fileDelete(Long bookPostId) {
-        List<BookPostFile> byId = bookPostFileMapper.findById(bookPostId);
+    public void fileDelete(Long compuPostId) {
+        List<CompuPostFile> byId = compuPostFileMapper.findById(compuPostId);
 
-        for (BookPostFile bookPostFile : byId) {
-            File file = new File(bookPostFile.getFilePath() + File.separator + bookPostFile.getFileName());
+        for (CompuPostFile compuPostFile : byId) {
+            File file = new File(compuPostFile.getFilePath() + File.separator + compuPostFile.getFileName());
 
             if(file.exists()){
                 file.delete();
@@ -170,7 +170,7 @@ public class BookPostService {
     public String pageProcess(String categoryName, Pagination pagination){
         pagination.setCategory(categoryName);
         pagination.setSearch();
-        pagination.setListLastNum(bookPostMapper.findByCategoryCount(pagination));
+        pagination.setListLastNum(compuPostMapper.findByCategoryCount(pagination));
 
         //log.info("pagination.getPage()={}", pagination.getPage());
         if(pagination.getPage() < 1){
@@ -191,7 +191,7 @@ public class BookPostService {
 
     public String pageProcess(Pagination pagination){
         pagination.setSearch();
-        pagination.setListLastNum(bookPostMapper.findByAllCount(pagination));
+        pagination.setListLastNum(compuPostMapper.findByAllCount(pagination));
 
         //log.info("pagination.getPage()={}", pagination.getPage());
         if(pagination.getPage() < 1){

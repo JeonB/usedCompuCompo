@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Pagination {
     //‘page=3&size=10&sort=id,DESC’
-    private BookCategory category;
+    private CompuCategory category;
     private Integer page = 0;           //현재페이지
     private Integer perFirstRow = 0;    //한페이지의 첫번째 게시글
     private Integer perRows = 5;        //한페이지에 보여줄 게시글 수
@@ -35,7 +35,7 @@ public class Pagination {
     }
 
     public void setCategory(String categoryName) {
-        BookCategory categoryUpper = BookCategory.valueOf(categoryName.toUpperCase());
+        CompuCategory categoryUpper = CompuCategory.valueOf(categoryName.toUpperCase());
         this.category = categoryUpper;
     }
 
@@ -102,11 +102,11 @@ public class Pagination {
 
     private String findRange(String searchRange) {
         switch (searchRange){
-            case "1" : return "bookname";
+            case "1" : return "compuname";
             case "2" : return "writeremail";
-            case "3" : return "bookdescription";
-            case "4" : return "bookname,bookdescription";
-            default:return "bookname";
+            case "3" : return "compudescription";
+            case "4" : return "compuname,compudescription";
+            default:return "compuname";
         }
     }
 }

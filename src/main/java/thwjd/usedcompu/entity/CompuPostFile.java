@@ -6,12 +6,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class BookPostFile {
+public class CompuPostFile {
 
     private Long id;
 
     @NotNull
-    private Long bookPostId;
+    private Long compuPostId;
 
     @NotBlank
     private String writerEmail;
@@ -22,12 +22,12 @@ public class BookPostFile {
     @NotBlank
     private String fileName;
 
-    public BookPostFile(){
+    public CompuPostFile(){
 
     }
 
-    public BookPostFile(Long bookPostId, String writerEmail, String filePath, String fileName){
-        this.bookPostId = bookPostId;
+    public CompuPostFile(Long compuPostId, String writerEmail, String filePath, String fileName){
+        this.compuPostId = compuPostId;
         this.writerEmail = writerEmail;
         this.filePath = filePath;
         this.fileName = fileName;

@@ -8,7 +8,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 
 @Data
-public class BookPost {
+public class CompuPost {
 
     private Long id;
 
@@ -16,17 +16,17 @@ public class BookPost {
     private String writerEmail;
 
     @NotBlank
-    private String bookName;
+    private String compuName;
 
     @NotNull //NotBlank는 String과 Collection타입에만 적용된다
-    private BookCategory bookCategory;
+    private CompuCategory compuCategory;
 
     @NotNull //NotBlank는 String과 Collection타입에만 적용된다
     @Min(1000)
-    private Integer bookPrice;
+    private Integer compuPrice;
 
     @NotBlank
-    private String bookDescription;
+    private String compuDescription;
 
     private List<MultipartFile> fileList;
 

@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 //@MapperScan(value = {"thwjd.usedbook.mapper"})
 @SpringBootApplication
-public class UsedbookApplication {
+public class UsedCompuApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UsedbookApplication.class, args);
+		SpringApplication.run(UsedCompuApplication.class, args);
 	}
 
 }

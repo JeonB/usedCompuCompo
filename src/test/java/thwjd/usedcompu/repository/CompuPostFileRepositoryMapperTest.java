@@ -4,21 +4,22 @@ import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import thwjd.usedcompu.entity.BookPostFile;
+import thwjd.usedcompu.entity.CompuPostFile;
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @MybatisTest
-class BookPostFileRepositoryMapperTest {
+class CompuPostFileRepositoryMapperTest {
 
-    @Autowired  BookPostFileRepositoryMapper repositoryMapper;
+    @Autowired
+    CompuPostFileRepositoryMapper repositoryMapper;
 
     @Test
     void save() {
-        BookPostFile bookPostFile = new BookPostFile();
-        bookPostFile.setWriterEmail("11@11");
-        bookPostFile.setBookPostId(2L);
-        bookPostFile.setFilePath("1212/1212.jpg");
+        CompuPostFile compuPostFile = new CompuPostFile();
+        compuPostFile.setWriterEmail("11@11");
+        compuPostFile.setBookPostId(2L);
+        compuPostFile.setFilePath("1212/1212.jpg");
 
-        repositoryMapper.save(bookPostFile);
+        repositoryMapper.save(compuPostFile);
     }
 }

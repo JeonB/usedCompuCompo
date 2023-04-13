@@ -39,7 +39,6 @@ public class MemberService {
         }
         return null;
     }
-ASDAD
 
     public BindingResult findPasswordValidCheck(Member member, BindingResult bindingResult){
         Member find = memberRepository.findByEmailAndName(member.getEmail(), member.getName()).orElse(null);

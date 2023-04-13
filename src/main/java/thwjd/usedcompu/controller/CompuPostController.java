@@ -10,13 +10,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import thwjd.usedcompu.annotation.Login;
-import thwjd.usedcompu.entity.compuPost;
-import thwjd.usedcompu.entity.compuPostFile;
+import thwjd.usedcompu.entity.CompuPost;
+import thwjd.usedcompu.entity.CompuPostFile;
+import thwjd.usedcompu.entity.CompuPost;
+import thwjd.usedcompu.entity.CompuPostFile;
 import thwjd.usedcompu.entity.Member;
-import thwjd.usedcompu.repository.compuPostFileRepositoryMapper;
-import thwjd.usedcompu.repository.compuPostRepositoryMapper;
+import thwjd.usedcompu.repository.CompuPostFileRepositoryMapper;
+import thwjd.usedcompu.repository.CompuPostRepositoryMapper;
+import thwjd.usedcompu.repository.CompuPostFileRepositoryMapper;
+import thwjd.usedcompu.repository.CompuPostRepositoryMapper;
 import thwjd.usedcompu.repository.CommentRepositoryMapper;
-import thwjd.usedcompu.service.compuPostService;
+import thwjd.usedcompu.service.CompuPostService;
+import thwjd.usedcompu.service.CompuPostService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -31,9 +36,12 @@ import java.util.Map;
 @RequestMapping("/compuPost")
 public class CompuPostController {
 
-    @Autowired CompuPostService compuPostService;
-    @Autowired CompuPostRepositoryMapper compuPostMapper;
-    @Autowired CompuPostFileRepositoryMapper compuPostFileMapper;
+    @Autowired
+    CompuPostService compuPostService;
+    @Autowired
+    CompuPostRepositoryMapper compuPostMapper;
+    @Autowired
+    CompuPostFileRepositoryMapper compuPostFileMapper;
     @Autowired CommentRepositoryMapper commentMapper;
 
     @GetMapping("/write")
@@ -52,7 +60,7 @@ public class CompuPostController {
             response.put("response", "사진은 10개까지만 업로드 가능합니다.");
         }
 
-        List validList = compuPostService.newcompuPostValidCheck(compuPost, bindingResult);
+        List validList = compuPostService.newCompuPostValidCheck(compuPost, bindingResult);
         if(validList.size() > 0){
             response.put("status", "valid");
             response.put("response", validList);
@@ -84,13 +92,13 @@ public class CompuPostController {
 
     @GetMapping("/detail/{compuPostId}")
     public String detail(@PathVariable Long compuPostId, Model model){
-        compuPost byId = compuPostMapper.findById(compuPostId);
+        CompuPost byId = compuPostMapper.findById(compuPostId);
 
         byId.setViewCount(byId.getViewCount() +1);
         compuPostMapper.viewPlus(byId);
         model.addAttribute("compuPost", byId);
 
-        List<compuPostFile> byIdFile = compuPostFileMapper.findById(compuPostId);
+        List<CompuPostFile> byIdFile = compuPostFileMapper.findById(compuPostId);
         model.addAttribute("fileList", byIdFile);
 
         return "compuPost/detail";
@@ -110,28 +118,28 @@ public class CompuPostController {
 
     @GetMapping("/edit/{compuPostId}")
     public String edit(@PathVariable Long compuPostId, Model model){
-        compuPost byId = compuPostMapper.findById(compuPostId);
+        CompuPost byId = compuPostMapper.findById(compuPostId);
         model.addAttribute("compuPost", byId);
 
-        List<compuPostFile> byIdFile = compuPostFileMapper.findById(compuPostId);
+        List<CompuPostFile> byIdFile = compuPostFileMapper.findById(compuPostId);
         model.addAttribute("fileList", byIdFile);
 
         return "compuPost/write";
     }
     @PostMapping("/edit")
     @ResponseBody
-    public Map editSave(@Validated @ModelAttribute compuPost compuPost, BindingResult bindingResult,
+    public Map editSave(@Validated @ModelAttribute CompuPost compuPost, BindingResult bindingResult,
                          HttpServletRequest request, @Login Member loginMember) throws IOException {
         Map<String, Object> response = new HashMap<>();
 
-        List<compuPostFile> byId = compuPostFileMapper.findById(compuPost.getId());
+        List<CompuPostFile> byId = compuPostFileMapper.findById(compuPost.getId());
 
         if(byId.size() > 10){
             response.put("status", "validPhoto");
             response.put("response", "사진은 10개까지만 업로드 가능합니다.");
         }
 
-        List validList = compuPostService.newcompuPostValidCheck(compuPost, bindingResult);
+        List validList = compuPostService.newCompuPostValidCheck(compuPost, bindingResult);
         if(validList.size() > 0){
             response.put("status", "valid");
             response.put("response", validList);
@@ -160,14 +168,14 @@ public class CompuPostController {
     @GetMapping("/remove/{compuPostId}")
     public String remove(@PathVariable Long compuPostId){
 
-        compuPost byId = compuPostMapper.findById(compuPostId);
+        CompuPost byId = compuPostMapper.findById(compuPostId);
 
         compuPostService.fileDelete(compuPostId);
 
         int deletePost = compuPostMapper.delete(compuPostId);
 
         if(deletePost == 1 ){
-            return "redirect:/category/"+byId.getcompuCategory().getLowerCase();
+            return "redirect:/category/"+byId.getCompuCategory().getLowerCase();
         }
         return null;
     }
