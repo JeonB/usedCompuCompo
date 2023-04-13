@@ -12,21 +12,21 @@
 <body>
 
 
-<div class="swiper-cover" th:fragment="slider(swiperName, bookPostList)">
+<div class="swiper-cover" th:fragment="slider(swiperName, compuPostList)">
     <div class="swiper " th:id="${swiperName}">
         <div class="swiper-wrapper">
-            <th:block th:each="bookPost : ${bookPostList}">
+            <th:block th:each="compuPost : ${compuPostList}">
                 <div class="swiper-slide">
                     <div class="col">
-                        <a class="card shadow-sm" th:href="@{'/bookPost/detail/'+${bookPost.id}}">
-                            <img class="swiper-lazy" th:if="${bookPost.thumbFileName != null}"
-                                 th:src="@{/bookPost/getImage/{imgName}(imgName=${bookPost.thumbFileName})}">
-                            <img class="swiper-lazy" th:if="${bookPost.thumbFileName == null}"
+                        <a class="card shadow-sm" th:href="@{'/compuPost/detail/'+${compuPost.id}}">
+                            <img class="swiper-lazy" th:if="${compuPost.thumbFileName != null}"
+                                 th:src="@{/templates/compuPost/getImage/{imgName}(imgName=${compuPost.thumbFileName})}">
+                            <img class="swiper-lazy" th:if="${compuPost.thumbFileName == null}"
                                  src="https://plchldr.co/i/245x180">
                             <div class="card-body" style="padding:0.5rem;">
                                 <p class="card-text" style="text-align:left;">
-                                    <span th:text="${bookPost.bookName}"></span> <br>
-                                    <span th:text="${bookPost.bookPrice}+'원'"></span>
+                                    <span th:text="${compuPost.compuName}"></span> <br>
+                                    <span th:text="${compuPost.compuPrice}+'원'"></span>
                                 </p>
                             </div>
                         </a>
@@ -61,7 +61,7 @@
     <div class="swiper" th:id="${swiperId}">
         <div class="swiper-wrapper">
             <div class="swiper-slide card shadow-sm" th:each="file : ${fileList}">
-                <img class="slideImg" th:src="@{/bookPost/getImage/{imgName}(imgName=${file.fileName})}">
+                <img class="slideImg" th:src="@{/templates/compuPost/getImage/{imgName}(imgName=${file.fileName})}">
             </div>
         </div>
     </div>
@@ -73,7 +73,7 @@
         <div class="swiper" th:id="${swiperId}">
             <div class="swiper-wrapper">
                 <div class="swiper-slide card shadow-sm" th:each="file : ${fileList}">
-                    <img class="slideImg" th:src="@{/bookPost/getImage/{imgName}(imgName=${file.fileName})}">
+                    <img class="slideImg" th:src="@{/templates/compuPost/getImage/{imgName}(imgName=${file.fileName})}">
                 </div>
             </div>
         </div>
@@ -118,7 +118,7 @@
                     <div th:id="'removeSlide-'+${swiperName}" class="removeSlideImg">
                         <i class="fas fa-times"></i>
                     </div>
-                    <img class="slideImg" th:src="@{/bookPost/getImage/{imgName}(imgName=${file.fileName})}">
+                    <img class="slideImg" th:src="@{/templates/compuPost/getImage/{imgName}(imgName=${file.fileName})}">
                 </div>
             </th:block>
 
@@ -135,7 +135,7 @@
                 <th:block th:if="${fileList} != null">  <!--/* 수정 시 */-->
                     <div class="swiper-slide card shadow-sm" th:each="file : ${fileList}">
                         <img class="slideImg"
-                             th:src="@{/bookPost/getImage/{imgName}(imgName=${file.fileName})}">
+                             th:src="@{/templates/compuPost/getImage/{imgName}(imgName=${file.fileName})}">
                     </div>
                 </th:block>
 

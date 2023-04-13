@@ -9,9 +9,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/usedbook
+    url: jdbc:mariadb://localhost:3306/usedCompuCompo
     driver-class-name: org.mariadb.jdbc.Driver
-    username: usedbookroot
+    username: usedCompuRoot
     password: 1234
   servlet:
     multipart:
@@ -20,5 +20,5 @@ spring:
       maxRequestSize: 30MB  #요청한 최대 사이즈
 
 mybatis:
-  type-aliases-package: thwjd.usedbook.entity
+  type-aliases-package: thwjd.usedcompu.entity
   mapper-locations: mybatis/**.xml
