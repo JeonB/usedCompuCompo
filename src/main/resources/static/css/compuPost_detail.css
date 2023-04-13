@@ -10,17 +10,17 @@
 #viewForm .imgRow { width:100%; height:400px; /*background-color:black;*/ }
 
 
-#viewForm .bookNameRow { border-bottom:1px solid #ced4da; }
-#viewForm .bookNameRow h2 { font-weight:bold; }
+#viewForm .compuNameRow { border-bottom:1px solid #ced4da; }
+#viewForm .compuNameRow h2 { font-weight:bold; }
 /*#viewForm .col-3 { text-align:center; }*/
 #viewForm .row { margin:10px 0px; }
 #viewForm .row:first-of-type { margin:0px; }
-#viewForm .bookDescriptionRow {
+#viewForm .compuDescriptionRow {
     height:200px;
     border-top:1px solid #ced4da;
 }
-#viewForm .bookDescriptionRow .col { padding-top:10px; padding-bottom:10px; }
-#viewForm .bookCountsRow{
+#viewForm .compuDescriptionRow .col { padding-top:10px; padding-bottom:10px; }
+#viewForm .compuCountsRow{
     border-bottom:1px solid #ced4da;
 }
 #viewForm .commentWrite { margin-top:20px; }

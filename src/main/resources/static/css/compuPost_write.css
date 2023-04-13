@@ -9,8 +9,8 @@
 #editorForm .imgRow { width:100%; height:400px; }
 #editorForm .row { margin:10px 0px; }
 #editorForm .col, #editorForm .col-3 { margin:0px; padding:0px; }
-#editorForm .bookNameRow input { font-size:x-large; }
-#editorForm #bookDescription { height:200px; padding-top:10px; padding-bottom:10px; }
+#editorForm .compuNameRow input { font-size:x-large; }
+#editorForm #compuDescription { height:200px; padding-top:10px; padding-bottom:10px; }
 
 
 

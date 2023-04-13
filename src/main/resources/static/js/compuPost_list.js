@@ -2,7 +2,7 @@ $(window).on("load", function(){
     //loadList();
 });
 
-$("#bookname, #writeremail, #createtime, #viewcount").on("click", function(){
+$("#compuname, #writeremail, #createtime, #viewcount").on("click", function(){
     loadList($(this));
 });
 

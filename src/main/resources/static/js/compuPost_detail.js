@@ -17,13 +17,13 @@ $(window).on("load", function(){
 });
 
 function loadComment(){
-    var bookPostId = $("#bookPostId").val();
+    var compuPostId = $("#compuPostId").val();
     $.ajax({
         type:"POST",
-        url:"/bookPost/detail/commentList",
+        url:"/compuPost/detail/commentList",
         contentType: 'application/json',
         data: JSON.stringify({
-            "bookPostId":bookPostId,
+            "compuPostId":compuPostId,
         }),
         success: function(lists){
             //console.log(lists);
@@ -129,7 +129,7 @@ function writeCommentDesign(updateText){
 
 
 function commentSubmit(){
-    var bookPostId = $("#bookPostId").val();
+    var compuPostId = $("#compuPostId").val();
     var content = $.trim($(".mainComtWrapper textarea").val());
     if(content == ""){
         alert("댓글내용을 입력해주세요");
@@ -141,7 +141,7 @@ function commentSubmit(){
         url:"/comment/write",
         contentType: 'application/json',
         data: JSON.stringify({
-            "bookPostId":bookPostId,
+            "compuPostId":compuPostId,
             "content":content
         }),
         success: function(data){
@@ -278,7 +278,7 @@ function replyOpen(){
 }
 
 $(document).on("click", ".comtReplyOk", function(){
-    var bookPostId = $("#bookPostId").val();
+    var compuPostId = $("#compuPostId").val();
     var wrapper = $(event.target).parents(".commentWrapper")[0];
     var commentId = $(wrapper).attr("id").replace("comt", "").split("-")[0];
     var retype = $(wrapper).attr("id").replace("comt", "").split("-")[1] //0;
@@ -298,7 +298,7 @@ $(document).on("click", ".comtReplyOk", function(){
         url:"/comment/write",
         contentType: 'application/json',
         data: JSON.stringify({
-            "bookPostId":bookPostId,
+            "compuPostId":compuPostId,
             "content":content,
             "reid":commentId,
             "retype":parseInt(retype)+1

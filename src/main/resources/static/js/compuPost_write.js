@@ -1,4 +1,4 @@
-var inputs = $("#bookName, #bookCategory, #bookPrice, #bookDescription");
+var inputs = $("#compuName, #compuCategory, #compuPrice, #compuDescription");
 var imgCountMin = 1;
 var imgCountMax = 10;
 var imgCountMaxMessage = "이미지는 10개까지만 업로드 가능합니다.";
@@ -37,9 +37,9 @@ $("#editorFormSubmit").click(function(event){
 //        console.log(pair[0]+ ', ' + pair[1]);
 //    }
 
-    var url = "/bookPost/write";
+    var url = "/compuPost/write";
     if($(location).attr('href').includes("/edit") == true){
-        url = "/bookPost/edit"
+        url = "/compuPost/edit"
     }
 
     $.ajax({
