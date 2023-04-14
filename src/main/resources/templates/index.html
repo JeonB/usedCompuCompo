@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
     <th:block th:include="fragments/head :: head('메인') "></th:block>  <!--/* 다른페이지와 다르게 fragment를 head태그에 사용하지 않음. 추가적인 style을 추가하기위함 */-->
     <link href="index.css" th:href="@{/css/index.css}" rel="stylesheet">
     <th:block th:include="fragments/slider :: slider-head"></th:block>
 </head>
 <body>
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <symbol id="github" viewBox="0 0 16 16">
-        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-    </symbol>
-</svg>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="github" viewBox="0 0 16 16">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+        </symbol>
+    </svg>
 
 <div th:replace="fragments/nav :: menu('')"></div>
 
@@ -18,7 +18,16 @@
 <div class="banner">
     <div class="title">
         <p class="big">중고컴퓨터부품 거래 커뮤니티</p>
-        <p class="mid">📖책방</p>
+        <p class="mid">📖컴퓨터 </p>
+        <p class="low">
+            <svg width="10" height="10" viewBox="-100 -100 200 200">
+                <polygon points="0,0 80,120 -80,120" fill="#234236" />
+                <polygon points="0,-40 60,60 -60,60" fill="#0C5C4C" />
+                <polygon points="0,-80 40,0 -40,0" fill="#38755B" />
+                <rect x="-20" y="120" width="40" height="30" fill="brown" />
+            </svg>
+            노잼트리
+        </p>
     </div>
     <form class="search" th:action="@{/search(page=${pagination.page}, searchRange=${pagination.searchRange}, searchText=${pagination.searchText})}">
         <input type="text" name="searchText" placeholder="제목을 검색해주세요">
@@ -27,15 +36,16 @@
 
 <div class="container">
     <div class="indexSlider mt-5">
-        <h3 style="font-weight:bold; user-select:none;">소설</h3>
+
+        <h3 style="font-weight:bold; user-select:none;">그래픽카드</h3>
         <div th:replace="fragments/slider :: slider('swiperA', ${novelList})"></div>
     </div>
     <div class="indexSlider mt-5">
-        <h3 style="font-weight:bold; user-select:none;">인문</h3>
+        <h3 style="font-weight:bold; user-select:none;">CPU</h3>
         <div th:replace="fragments/slider :: slider('swiperB', ${humanitiesList})"></div>
     </div>
     <div class="indexSlider mt-5">
-        <h3 style="font-weight:bold; user-select:none;">만화</h3>
+        <h3 style="font-weight:bold; user-select:none;">RAM</h3>
         <div th:replace="fragments/slider :: slider('swiperC', ${cartoonList})"></div>
     </div>
 </div>
@@ -51,7 +61,7 @@
         </div>
 
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li class="ms-3"><a class="text-muted" href="https://github.com/thwjd1356"><svg class="bi" width="24" height="24"><use xlink:href="#github"/></svg></a></li>
+            <li class="ms-3"><a class="text-muted" href="https://github.com/JeonB/usedCompuCompo.git"><svg class="bi" width="24" height="24"><use xlink:href="#github"/></svg></a></li>
         </ul>
     </footer>
 </div>

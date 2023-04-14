@@ -24,6 +24,7 @@
 .banner .title {  color:white; }
 .banner .big{ font-size:20px; }
 .banner .mid{ font-size:35px; }
+.banner .low{ font-size:50px; }
 .banner input{
     margin-top:13px;
     border:2px solid #8C8C8C;
@@ -45,9 +46,12 @@
 
 @media screen and (max-width: 768px) {
     .banner{ height:250px; }
+
+
     .banner:before { height:250px; }
     .banner .big{ font-size:15px; }
     .banner .mid{ font-size:35px; margin-top:20px;}
+    .banner .low{ font-size:50px; margin-top:10px;}
 }
 
 @media screen and (max-width: 600px) {
