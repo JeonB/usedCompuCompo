@@ -20,5 +20,5 @@ spring:
       maxRequestSize: 30MB  #요청한 최대 사이즈
 
 mybatis:
-  type-aliases-package: thwjd.usedcompu.entity
+  type-aliases-package: jeonb.usedcompu.entity
   mapper-locations: mybatis/**.xml
