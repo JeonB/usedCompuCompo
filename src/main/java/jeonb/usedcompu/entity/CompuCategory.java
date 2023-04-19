@@ -2,7 +2,7 @@ package jeonb.usedcompu.entity;
 
 
 public enum CompuCategory {
-    GRAPHIC("그래픽카드", "graphicCard"),
+    GRAPHIC("그래픽카드", "graphic"),
     CPU("CPU", "cpu"),
     RAM("RAM", "ram");
 

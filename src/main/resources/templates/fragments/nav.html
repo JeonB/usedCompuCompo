@@ -7,7 +7,7 @@
 
 <nav class="navbar navbar-expand-md custom-theme" th:fragment="menu(category)">
     <div class="container-fluid custom-width">
-        <a class="navbar-brand" href="#" th:href="@{/}" >📖<span>컴퓨터</span></a>
+        <a class="navbar-brand" href="#" th:href="@{/}" >💻<span>컴피존</span></a>
 
         <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" style="vertical-align:baseline;">
@@ -21,13 +21,13 @@
                     <a class="nav-link" th:href="@{/search}" th:classappend="${category}=='allSearch' ? 'custom-active'">통합검색</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/category/novel}" th:classappend="${category}=='novel' ? 'custom-active'">그래픽카드</a>
+                    <a class="nav-link" th:href="@{/category/graphic}" th:classappend="${category}=='graphic' ? 'custom-active'">그래픽카드</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/category/humanities}" th:classappend="${category}=='humanities' ? 'custom-active'">CPU</a>
+                    <a class="nav-link" th:href="@{/category/cpu}" th:classappend="${category}=='cpu' ? 'custom-active'">CPU</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/category/cartoon}" th:classappend="${category}=='cartoon' ? 'custom-active'">RAM</a>
+                    <a class="nav-link" th:href="@{/category/ram}" th:classappend="${category}=='ram' ? 'custom-active'">RAM</a>
                 </li>
 
             </ul>

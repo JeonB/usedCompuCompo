@@ -51,7 +51,7 @@
             <th class="col1" scope="row" th:text="${list.id}">1</th>
             <td class="col4" scope="row" th:text="${list.compuCategory.getName}" th:if="${pagination.category == null}">카테고리명</td>
             <td class="col2">
-                <a href="#" th:href="@{/templates/compuPost/detail/{compuPostId}(compuPostId=${list.id})}" th:text="${list.compuName}">Mark</a>
+                <a href="#" th:href="@{/compuPost/detail/{compuPostId}(compuPostId=${list.id})}" th:text="${list.compuName}">Mark</a>
                 <span>(<span style="font-size:0.8em;" th:text="${list.commentCount}">댓글수</span>)</span>
             </td>
             <td class="col3" th:text="${list.writerEmail}">Otto</td>

@@ -18,16 +18,8 @@
 <div class="banner">
     <div class="title">
         <p class="big">중고컴퓨터부품 거래 커뮤니티</p>
-        <p class="mid">📖컴퓨터 </p>
-        <p class="low">
-            <svg width="10" height="10" viewBox="-100 -100 200 200">
-                <polygon points="0,0 80,120 -80,120" fill="#234236" />
-                <polygon points="0,-40 60,60 -60,60" fill="#0C5C4C" />
-                <polygon points="0,-80 40,0 -40,0" fill="#38755B" />
-                <rect x="-20" y="120" width="40" height="30" fill="brown" />
-            </svg>
-            노잼트리
-        </p>
+        <p class="mid">💻컴피존 </p>
+        <p class="low"></p>
     </div>
     <form class="search" th:action="@{/search(page=${pagination.page}, searchRange=${pagination.searchRange}, searchText=${pagination.searchText})}">
         <input type="text" name="searchText" placeholder="제목을 검색해주세요">
@@ -38,15 +30,15 @@
     <div class="indexSlider mt-5">
 
         <h3 style="font-weight:bold; user-select:none;">그래픽카드</h3>
-        <div th:replace="fragments/slider :: slider('swiperA', ${novelList})"></div>
+        <div th:replace="fragments/slider :: slider('swiperA', ${graphicList})"></div>
     </div>
     <div class="indexSlider mt-5">
         <h3 style="font-weight:bold; user-select:none;">CPU</h3>
-        <div th:replace="fragments/slider :: slider('swiperB', ${humanitiesList})"></div>
+        <div th:replace="fragments/slider :: slider('swiperB', ${cpuList})"></div>
     </div>
     <div class="indexSlider mt-5">
         <h3 style="font-weight:bold; user-select:none;">RAM</h3>
-        <div th:replace="fragments/slider :: slider('swiperC', ${cartoonList})"></div>
+        <div th:replace="fragments/slider :: slider('swiperC', ${ramList})"></div>
     </div>
 </div>
 

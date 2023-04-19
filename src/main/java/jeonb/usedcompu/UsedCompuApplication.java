@@ -3,7 +3,6 @@ package jeonb.usedcompu;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-//@MapperScan(value = {"thwjd.usedbook.mapper"})
 @SpringBootApplication
 public class UsedCompuApplication {
 
