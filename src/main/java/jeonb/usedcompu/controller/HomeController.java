@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import jeonb.usedcompu.repository.CompuPostFileRepositoryMapper;
 import jeonb.usedcompu.repository.CompuPostRepositoryMapper;
 import jeonb.usedcompu.service.CompuPostService;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -75,4 +76,9 @@ public class HomeController {
         return "compuPost/list";
     }
 
+    @GetMapping("/test")
+    @ResponseBody
+    public String testHello(){
+        return "testpageHi";
+    }
 }
