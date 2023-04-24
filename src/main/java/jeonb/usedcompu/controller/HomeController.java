@@ -25,10 +25,21 @@ public class HomeController {
     @Autowired
     CommentRepositoryMapper commentMapper;
 
+   /* enum클래스 상수 리스트 확인
+   public static void main(String[] args) {
+        HomeController hc = new HomeController();
+        hc.test();
+    }
+    public void test(){
+        CompuCategory[] categories = CompuCategory.values();
+        for(CompuCategory c : CompuCategory.values())
+            System.out.println(c);
+    }
+    */
     @GetMapping("/")
     public String index(@ModelAttribute Pagination pagination, Model model){
 
-        CompuCategory[] categories = CompuCategory.values();
+        CompuCategory[] categories = CompuCategory.values(); //GRAPHIC,CPU,RAM
 
         for (CompuCategory category : categories) {
             List<CompuPost> compuPostList = compuPostMapper.getIndexList(category.toString());
