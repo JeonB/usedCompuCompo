@@ -49,13 +49,13 @@ $("#editorFormSubmit").click(function(event){
         contentType: false,
         processData: false,
         success : function(result){
-            if(result.status == "validPhoto"){
+            if(result.status === "validPhoto"){
                 alert(imgCountMaxMessage);
             }
 
-            if(result.status == "valid"){
+            if(result.status === "valid"){
                 result.response.forEach(e => {
-                    if(e.status == false){
+                    if(e.status === false){
                         $("#"+e.field).addClass("is-invalid");
                         $("#"+e.field+"Help").addClass("ani");
                         $("#"+e.field+"Help").html(""+e.message);
@@ -66,7 +66,7 @@ $("#editorFormSubmit").click(function(event){
                 });
             }
 
-            if(result.status == "saveOk"){
+            if(result.status === "saveOk"){
                 //alert(result.response);
                 window.location.replace(result.response);
             }

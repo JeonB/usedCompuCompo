@@ -15,12 +15,12 @@ public interface CompuPostRepositoryMapper {
                         "values(#{writerEmail}, #{compuName}, #{compuCategory}, #{compuPrice}, #{compuDescription}, #{createTime})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void save(CompuPost compuPost);
-
-    @Select("select count(*) from compupost where compucategory=#{category} ${search}")
+    //where compucategory=#{category}
+    @Select("select count(*) from compupost  ${search}")
     Integer findByCategoryCount(Pagination pagination);
-
+    //where compucategory=#{category}
     @Select("select * from compupost " +
-            "where compucategory=#{category} ${search} " +
+            " ${search} " +
             "order by ${order} limit #{perRows} offset #{perFirstRow}")
         //$는 값만 반환, #은 ""을 포함하여 반환
     List<CompuPost> findByPaginationAndSearch(Pagination pagination);
