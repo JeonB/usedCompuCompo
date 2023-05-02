@@ -106,7 +106,7 @@ public class CompuPostController {
         return commentMapper.findAll(map.get("compuPostId"));
     }
 
-    @GetMapping("/getImage/{imgName}")
+    @GetMapping("compuPost/getImage/{imgName}")
     private ResponseEntity<Resource> getImageUrl(@PathVariable String imgName) throws IOException {
         return compuPostService.fileFoundTest(imgName);
         //http://localhost:8080/compuPost/imgtest/69221ce3-e582-4ce5-9a56-3730b5ba53ec_9_%EC%BD%94%EB%94%A9%EB%A7%88%EC%A7%80%EB%A7%89.jpg

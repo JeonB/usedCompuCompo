@@ -17,7 +17,7 @@ class CompuPostFileRepositoryMapperTest {
     void save() {
         CompuPostFile compuPostFile = new CompuPostFile();
         compuPostFile.setWriterEmail("11@11");
-        compuPostFile.setBookPostId(2L);
+        compuPostFile.setCompuPostId(2L);
         compuPostFile.setFilePath("1212/1212.jpg");
 
         repositoryMapper.save(compuPostFile);

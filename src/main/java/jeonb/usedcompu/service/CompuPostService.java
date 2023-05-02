@@ -1,5 +1,6 @@
 package jeonb.usedcompu.service;
 
+import java.awt.Desktop;
 import jeonb.usedcompu.entity.CompuPost;
 import jeonb.usedcompu.entity.CompuPostFile;
 import jeonb.usedcompu.entity.Pagination;
@@ -69,8 +70,7 @@ public class CompuPostService {
 
 
     public void fileSave(CompuPost compuPost) throws IOException {
-        //String uploadPath = Paths.get("D:", "projectEn", "usedcompu", "src", "main", "resources", "userUploadImg").toString();
-        String uploadPath = Paths.get("D:", "projectEn", "usedcompu", "userUploadImg").toString();
+        String uploadPath = Paths.get("C:", "Users", "jeon", "Desktop", "usedCompuCompo", "src", "main", "resources", "templates", "compuPost", "getImage").toString();
 
         int order = 10;
         for (MultipartFile multipartFile : compuPost.getFileList()) {
@@ -98,7 +98,7 @@ public class CompuPostService {
 
 
     public ResponseEntity<Resource> fileFoundTest(String imgName) throws IOException {
-        String uploadPath = Paths.get("D:", "projectEn", "usedcompu", "userUploadImg").toString();
+        String uploadPath = Paths.get("C:", "Users", "jeon", "Desktop", "usedCompuCompo", "src", "main", "resources", "templates", "compuPost", "getImage").toString();
         Resource resource = new FileSystemResource(uploadPath + File.separator + imgName);
 
         if(!resource.exists()){
@@ -114,8 +114,7 @@ public class CompuPostService {
 
 
     public void fileUpdate(CompuPost compuPost) throws IOException {
-        //String uploadPath = Paths.get("D:", "projectEn", "usedcompu", "src", "main", "resources", "userUploadImg").toString();
-        String uploadPath = Paths.get("D:", "projectEn", "usedcompu", "userUploadImg").toString();
+        String uploadPath = Paths.get("C:", "Users", "jeon", "Desktop", "usedCompuCompo", "src", "main", "resources", "templates", "compuPost", "getImage").toString();
 
         List<CompuPostFile> byId = compuPostFileMapper.findById(compuPost.getId());
         int order = 10 - byId.size() -1;

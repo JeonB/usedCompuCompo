@@ -17,9 +17,9 @@ class CompuPostRepositoryMapperTest {
     void save(){
         CompuPost compuPost = new CompuPost();
         compuPost.setWriterEmail("11@11");
-        compuPost.setBookName("11");
-        compuPost.setBookPrice(1111);
-        compuPost.setBookDescription("123456789");
+        compuPost.setCompuName("11");
+        compuPost.setCompuPrice(1111);
+        compuPost.setCompuDescription("123456789");
 
         repositoryMapper.save(compuPost);
     }
