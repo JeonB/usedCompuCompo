@@ -22,3 +22,7 @@ spring:
 mybatis:
   type-aliases-package: jeonb.usedcompu.entity
   mapper-locations: mybatis/**.xml
+
+
+
+upload.directory: E:\IdeaProjects\usedCompuCompo\src\main\resources\static\compuPost\getImage

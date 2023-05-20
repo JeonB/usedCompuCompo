@@ -5,6 +5,7 @@ import jeonb.usedcompu.entity.CompuPost;
 import jeonb.usedcompu.entity.CompuPostFile;
 import jeonb.usedcompu.entity.Member;
 import jeonb.usedcompu.repository.CommentRepositoryMapper;
+import jeonb.usedcompu.annotation.service.CompuPostFileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -16,7 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import jeonb.usedcompu.repository.CompuPostFileRepositoryMapper;
 import jeonb.usedcompu.repository.CompuPostRepositoryMapper;
-import jeonb.usedcompu.service.CompuPostService;
+import jeonb.usedcompu.annotation.service.CompuPostService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -31,14 +32,20 @@ import java.util.Map;
 @RequestMapping("/compuPost")
 public class CompuPostController {
 
+    private final CompuPostService compuPostService;
+    private final CompuPostRepositoryMapper compuPostMapper;
+    private final CompuPostFileRepositoryMapper compuPostFileMapper;
+    private final CommentRepositoryMapper commentMapper;
+    private final CompuPostFileService compuPostFileService;
+
     @Autowired
-    CompuPostService compuPostService;
-    @Autowired
-    CompuPostRepositoryMapper compuPostMapper;
-    @Autowired
-    CompuPostFileRepositoryMapper compuPostFileMapper;
-    @Autowired
-    CommentRepositoryMapper commentMapper;
+    public CompuPostController(CompuPostService compuPostService, CompuPostRepositoryMapper compuPostMapper, CompuPostFileRepositoryMapper compuPostFileMapper, CommentRepositoryMapper commentMapper, CompuPostFileService compuPostFileService) {
+        this.compuPostService = compuPostService;
+        this.compuPostMapper = compuPostMapper;
+        this.compuPostFileMapper = compuPostFileMapper;
+        this.commentMapper = commentMapper;
+        this.compuPostFileService = compuPostFileService;
+    }
 
     @GetMapping("/write")
     public String writeForm(@ModelAttribute CompuPost compuPost){
@@ -73,7 +80,7 @@ public class CompuPostController {
             compuPost.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentTime));
             
             compuPostMapper.save(compuPost);  //id저장됨
-            compuPostService.fileSave(compuPost);
+            compuPostFileService.save(compuPost);
 
             String currentUrl = request.getRequestURL().toString();
             String redirectUrl = currentUrl.replace("/compuPost/write", "/compuPost/detail/"+compuPost.getId());
@@ -90,7 +97,7 @@ public class CompuPostController {
     public String detail(@PathVariable Long compuPostId, Model model){
         CompuPost byId = compuPostMapper.findById(compuPostId);
 
-        byId.setViewCount(byId.getViewCount() +1);
+        byId.setViewCount(byId.getViewCount() +1);// TODO: Event 를 활용해서 게시글 조회하는 이벤트가 발생했을 때 setViewCount를 호출하는 EventHandler를 활용하면 좋음
         compuPostMapper.viewPlus(byId);
         model.addAttribute("compuPost", byId);
 
@@ -149,7 +156,7 @@ public class CompuPostController {
             }
 
             compuPostMapper.update(compuPost);
-            compuPostService.fileUpdate(compuPost);
+            compuPostFileService.update(compuPost);
 
             String currentUrl = request.getRequestURL().toString();
             String redirectUrl = currentUrl.replace("/compuPost/edit", "/compuPost/detail/"+compuPost.getId());
@@ -166,7 +173,7 @@ public class CompuPostController {
 
         CompuPost byId = compuPostMapper.findById(compuPostId);
 
-        compuPostService.fileDelete(compuPostId);
+        compuPostFileService.delete(compuPostId);
 
         int deletePost = compuPostMapper.delete(compuPostId);
 

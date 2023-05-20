@@ -1,11 +1,8 @@
-package jeonb.usedcompu.service;
+package jeonb.usedcompu.annotation.service;
 
-import java.awt.Desktop;
 import jeonb.usedcompu.entity.CompuPost;
-import jeonb.usedcompu.entity.CompuPostFile;
 import jeonb.usedcompu.entity.Pagination;
 import jeonb.usedcompu.entity.ValidCheckResponse;
-import jeonb.usedcompu.repository.CompuPostFileRepositoryMapper;
 import jeonb.usedcompu.repository.CompuPostRepositoryMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,27 +14,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @Service
 public class CompuPostService {
 
+    private final CompuPostRepositoryMapper compuPostMapper;
+
     @Autowired
-    CompuPostRepositoryMapper compuPostMapper;
-    @Autowired
-    CompuPostFileRepositoryMapper compuPostFileMapper;
+    public CompuPostService(CompuPostRepositoryMapper compuPostMapper) {
+        this.compuPostMapper = compuPostMapper;
+    }
 
     public List newCompuPostValidCheck(CompuPost compuPost, BindingResult bindingResult){
         List<ValidCheckResponse> response = new ArrayList<>();
@@ -68,35 +63,6 @@ public class CompuPostService {
         return response;
     }
 
-
-    public void fileSave(CompuPost compuPost) throws IOException {
-        String uploadPath = Paths.get("C:", "Users", "jeon", "Desktop", "usedCompuCompo", "src", "main", "resources", "templates", "compuPost", "getImage").toString();
-
-        int order = 10;
-        for (MultipartFile multipartFile : compuPost.getFileList()) {
-            UUID uuid = UUID.randomUUID();
-            String filename = uuid + "_" + order + "_" + multipartFile.getOriginalFilename();
-            Path savePath = Paths.get(uploadPath + File.separator + filename).toAbsolutePath();
-
-            multipartFile.transferTo(savePath.toFile());
-            //MultipartFile.transferTo()는 요청 시점의 임시 파일을 로컬 파일 시스템에 영구적으로 복사하는 역할을 수행한다.
-            // 단 한번만 실행되며 두번째 실행부터는 성공을 보장할 수 없다.
-            //Embedded Tomcat을 컨테이너로 사용할 경우 DiskFileItem.write()가 실제 역할을 수행한다.
-            // I/O 사용을 최소화하기 위해 파일 이동을 시도하며, 이동이 불가능할 경우 파일 복사를 진행한다.
-
-            CompuPostFile compuPostFile = new CompuPostFile(
-                    compuPost.getId(),
-                    compuPost.getWriterEmail(),
-                    uploadPath,
-                    filename
-            );
-            compuPostFileMapper.save(compuPostFile);
-            order--;
-        }
-    }
-
-
-
     public ResponseEntity<Resource> fileFoundTest(String imgName) throws IOException {
         String uploadPath = Paths.get("C:", "Users", "jeon", "Desktop", "usedCompuCompo", "src", "main", "resources", "templates", "compuPost", "getImage").toString();
         Resource resource = new FileSystemResource(uploadPath + File.separator + imgName);
@@ -111,62 +77,6 @@ public class CompuPostService {
 
         return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
     }
-
-
-    public void fileUpdate(CompuPost compuPost) throws IOException {
-        String uploadPath = Paths.get("C:", "Users", "jeon", "Desktop", "usedCompuCompo", "src", "main", "resources", "templates", "compuPost", "getImage").toString();
-
-        List<CompuPostFile> byId = compuPostFileMapper.findById(compuPost.getId());
-        int order = 10 - byId.size() -1;
-
-        List<String> removeFileList = compuPost.getRemoveFileList();
-        if(removeFileList != null){
-            for (String removeFile : removeFileList) {
-                String temp = removeFile.replace("/compuPost/getImage/", "");
-                temp = URLDecoder.decode(temp, StandardCharsets.UTF_8);
-                compuPostFileMapper.removeFile(compuPost.getId(), temp);
-            }
-        }
-
-        if(compuPost.getFileList() != null){
-            for (MultipartFile multipartFile : compuPost.getFileList()) {
-                UUID uuid = UUID.randomUUID();
-                String filename = uuid + "_" + order + "_" + multipartFile.getOriginalFilename();
-                Path savePath = Paths.get(uploadPath + File.separator + filename).toAbsolutePath();
-
-                multipartFile.transferTo(savePath.toFile());
-                //MultipartFile.transferTo()는 요청 시점의 임시 파일을 로컬 파일 시스템에 영구적으로 복사하는 역할을 수행한다.
-                // 단 한번만 실행되며 두번째 실행부터는 성공을 보장할 수 없다.
-                //Embedded Tomcat을 컨테이너로 사용할 경우 DiskFileItem.write()가 실제 역할을 수행한다.
-                // I/O 사용을 최소화하기 위해 파일 이동을 시도하며, 이동이 불가능할 경우 파일 복사를 진행한다.
-
-                CompuPostFile compuPostFile = new CompuPostFile(
-                        compuPost.getId(),
-                        compuPost.getWriterEmail(),
-                        uploadPath,
-                        filename
-                );
-                compuPostFileMapper.save(compuPostFile);
-                order--;
-            }
-        }
-
-    }
-
-    public void fileDelete(Long compuPostId) {
-        List<CompuPostFile> byId = compuPostFileMapper.findById(compuPostId);
-
-        for (CompuPostFile compuPostFile : byId) {
-            File file = new File(compuPostFile.getFilePath() + File.separator + compuPostFile.getFileName());
-
-            if(file.exists()){
-                file.delete();
-            }
-        }
-    }
-
-
-
 
     public String pageProcess(String categoryName, Pagination pagination){
         pagination.setCategory(categoryName);
@@ -210,7 +120,6 @@ public class CompuPostService {
 
         return null;
     }
-
 
 
 }
