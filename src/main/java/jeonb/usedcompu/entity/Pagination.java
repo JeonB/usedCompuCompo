@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Pagination {
-    //‘page=3&size=10&sort=id,DESC’
+
     private CompuCategory category;
     private Integer page = 0;           //현재페이지
     private Integer perFirstRow = 0;    //한페이지의 첫번째 게시글
