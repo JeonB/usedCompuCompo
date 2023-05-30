@@ -1,6 +1,6 @@
 package jeonb.usedcompu.repository;
 
-import jeonb.usedcompu.entity.Member;
+import jeonb.usedcompu.model.Member;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;

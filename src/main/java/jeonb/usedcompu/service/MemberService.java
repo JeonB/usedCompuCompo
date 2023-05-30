@@ -1,7 +1,7 @@
 package jeonb.usedcompu.service;
 
-import jeonb.usedcompu.entity.Member;
-import jeonb.usedcompu.entity.ValidCheckResponse;
+import jeonb.usedcompu.model.Member;
+import jeonb.usedcompu.model.ValidCheckResponse;
 import jeonb.usedcompu.repository.MemberRepositoryMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

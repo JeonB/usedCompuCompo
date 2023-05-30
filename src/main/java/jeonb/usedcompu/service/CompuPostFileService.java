@@ -1,7 +1,7 @@
-package jeonb.usedcompu.annotation.service;
+package jeonb.usedcompu.service;
 
-import jeonb.usedcompu.entity.CompuPost;
-import jeonb.usedcompu.entity.CompuPostFile;
+import jeonb.usedcompu.model.CompuPost;
+import jeonb.usedcompu.model.CompuPostFile;
 import jeonb.usedcompu.repository.CompuPostFileRepositoryMapper;
 import jeonb.usedcompu.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;

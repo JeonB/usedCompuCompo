@@ -1,4 +1,4 @@
-package jeonb.usedcompu.entity;
+package jeonb.usedcompu.model;
 
 
 public enum CompuCategory {

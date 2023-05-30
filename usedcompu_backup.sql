@@ -4,8 +4,6 @@
 -- ------------------------------------------------------
 -- Server version	10.6.5-MariaDB
 
-
-
 -- Table structure for table `compucategory`
 --
 

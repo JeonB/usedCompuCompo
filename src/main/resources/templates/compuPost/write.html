@@ -33,7 +33,7 @@
                 <div class="col">
                     <select class="form-select" aria-label="Default select example" id="compuCategory" name="compuCategory">
                         <option value="">카테고리</option>
-                        <option th:each="category : ${T(jeonb.usedcompu.entity.CompuCategory).values()}"
+                        <option th:each="category : ${T(jeonb.usedcompu.model.CompuCategory).values()}"
                                 th:value="${category}" th:text="${category.name}"
                                 th:selected="${category} == ${compuPost.compuCategory}">
                         </option>

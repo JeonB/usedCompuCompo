@@ -1,6 +1,6 @@
 package jeonb.usedcompu.repository;
 
-import jeonb.usedcompu.entity.Comment;
+import jeonb.usedcompu.model.Comment;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 

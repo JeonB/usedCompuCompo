@@ -1,4 +1,4 @@
-package jeonb.usedcompu.entity;
+package jeonb.usedcompu.model;
 
 import lombok.Data;
 
@@ -78,7 +78,8 @@ public class Pagination {
         String findRange = findRange(this.getSearchRange());
 
         if(this.searchText.equals("")){ //검색값이 없을 때
-            result = "";
+            if(this.category != null)
+                result = "where compucategory = '" + this.category + "'";
         }else {  //검색값이 있을 때
             boolean contains = findRange.contains(",");
             if (contains == false) {

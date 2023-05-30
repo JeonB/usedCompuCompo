@@ -1,6 +1,6 @@
 package jeonb.usedcompu.repository;
 
-import jeonb.usedcompu.entity.CompuPostFile;
+import jeonb.usedcompu.model.CompuPostFile;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package jeonb.usedcompu.controller;
 
-import jeonb.usedcompu.entity.*;
+import jeonb.usedcompu.model.*;
 import jeonb.usedcompu.repository.CommentRepositoryMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

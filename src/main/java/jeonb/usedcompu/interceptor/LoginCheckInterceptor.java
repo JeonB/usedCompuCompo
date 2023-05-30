@@ -1,6 +1,6 @@
 package jeonb.usedcompu.interceptor;
 
-import jeonb.usedcompu.entity.SessionConstants;
+import jeonb.usedcompu.model.SessionConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 

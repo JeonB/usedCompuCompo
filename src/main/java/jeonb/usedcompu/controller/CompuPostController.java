@@ -1,11 +1,11 @@
 package jeonb.usedcompu.controller;
 
 import jeonb.usedcompu.annotation.Login;
-import jeonb.usedcompu.entity.CompuPost;
-import jeonb.usedcompu.entity.CompuPostFile;
-import jeonb.usedcompu.entity.Member;
+import jeonb.usedcompu.model.CompuPost;
+import jeonb.usedcompu.model.CompuPostFile;
+import jeonb.usedcompu.model.Member;
 import jeonb.usedcompu.repository.CommentRepositoryMapper;
-import jeonb.usedcompu.annotation.service.CompuPostFileService;
+import jeonb.usedcompu.service.CompuPostFileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -17,7 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import jeonb.usedcompu.repository.CompuPostFileRepositoryMapper;
 import jeonb.usedcompu.repository.CompuPostRepositoryMapper;
-import jeonb.usedcompu.annotation.service.CompuPostService;
+import jeonb.usedcompu.service.CompuPostService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;

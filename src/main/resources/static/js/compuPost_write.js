@@ -17,7 +17,8 @@ inputs.on("click", function(){
 var validCheck = 0;
 $("#editorFormSubmit").click(function(event){
     var imgCount = $(".previewSlider.write .slideImg").length;
-    if(imgCount < imgCountMin){
+    var imgName = $(".previewSlider.write .slideImg").attr("src");
+    if(imgCount < imgCountMin || imgName === "https://plchldr.co/i/300x300" ){
         alert("이미지는 최소 1개 이상 업로드해야합니다.");
         return false;
     }
@@ -39,7 +40,7 @@ $("#editorFormSubmit").click(function(event){
 
     var url = "/compuPost/write";
     if($(location).attr('href').includes("/edit") == true){
-        url = "/compuPost/edit"
+        url = "/compuPost/edit";
     }
 
     $.ajax({

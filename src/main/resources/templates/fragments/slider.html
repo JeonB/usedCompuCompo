@@ -7,7 +7,7 @@
         <link href="slider.css" th:href="@{/css/previewSlider.css}" rel="stylesheet">
         <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
     </div>
-    
+
 </head>
 <body>
 
@@ -131,11 +131,11 @@
                     </div>
                 </th:block>
 
-                 <!--/* 입력 시 */-->
-                    <div class="swiper-slide card shadow-sm">
-                        <img class="addSlideImg" th:id="'addSlideImg-'+${swiperName}"
-                             th:src="@{/img/smallsliderplus.jpg}">
-                    </div>
+                <!--/* 입력 시 */-->
+                <div class="swiper-slide card shadow-sm">
+                    <img class="addSlideImg" th:id="'addSlideImg-'+${swiperName}"
+                         th:src="@{/img/smallsliderplus.jpg}">
+                </div>
 
             </div>
         </div>
@@ -152,6 +152,14 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
 
 <div th:fragment="slider-script">
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>

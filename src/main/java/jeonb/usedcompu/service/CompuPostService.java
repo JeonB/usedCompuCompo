@@ -1,8 +1,8 @@
-package jeonb.usedcompu.annotation.service;
+package jeonb.usedcompu.service;
 
-import jeonb.usedcompu.entity.CompuPost;
-import jeonb.usedcompu.entity.Pagination;
-import jeonb.usedcompu.entity.ValidCheckResponse;
+import jeonb.usedcompu.model.CompuPost;
+import jeonb.usedcompu.model.Pagination;
+import jeonb.usedcompu.model.ValidCheckResponse;
 import jeonb.usedcompu.repository.CompuPostRepositoryMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +64,7 @@ public class CompuPostService {
     }
 
     public ResponseEntity<Resource> fileFoundTest(String imgName) throws IOException {
-        String uploadPath = Paths.get("C:", "Users", "jeon", "Desktop", "usedCompuCompo", "src", "main", "resources", "templates", "compuPost", "getImage").toString();
+        String uploadPath = Paths.get("C:", "Users", "jeon", "Desktop", "usedCompu", "src", "main", "resources", "templates", "compuPost", "getImage").toString();
         Resource resource = new FileSystemResource(uploadPath + File.separator + imgName);
 
         if(!resource.exists()){

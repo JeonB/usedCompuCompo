@@ -1,8 +1,12 @@
-package jeonb.usedcompu.entity;
+package jeonb.usedcompu.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+/**
+ *
+ */
+
 
 @Getter
 @Setter

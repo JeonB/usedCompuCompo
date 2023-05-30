@@ -1,6 +1,6 @@
 package jeonb.usedcompu.repository;
 
-import jeonb.usedcompu.entity.Member;
+import jeonb.usedcompu.model.Member;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;

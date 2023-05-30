@@ -1,8 +1,8 @@
 package jeonb.usedcompu.controller;
 
 import jeonb.usedcompu.annotation.Login;
-import jeonb.usedcompu.entity.Member;
-import jeonb.usedcompu.entity.SessionConstants;
+import jeonb.usedcompu.model.Member;
+import jeonb.usedcompu.model.SessionConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

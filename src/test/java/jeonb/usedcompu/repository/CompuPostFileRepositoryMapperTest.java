@@ -1,6 +1,6 @@
 package jeonb.usedcompu.repository;
 
-import jeonb.usedcompu.entity.CompuPostFile;
+import jeonb.usedcompu.model.CompuPostFile;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;

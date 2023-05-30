@@ -1,4 +1,4 @@
-package jeonb.usedcompu.entity;
+package jeonb.usedcompu.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
