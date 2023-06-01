@@ -14,21 +14,23 @@ import javax.servlet.http.HttpSession;
 
 @Slf4j
 public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolver {
+    //resolveArgument를 실행하기 위한 조건
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        //resolveArgument를 실행하기 위한 조건
-        //@Login 애노테이션이 존재 && Member 타임이여야 한다.
-        boolean hasLoginAnnotation = parameter.hasParameterAnnotation(Login.class);
+
+        //member타입인지 확인
         boolean hasMemberType = Member.class.isAssignableFrom(parameter.getParameterType());
+        //@Login 어노테이션이 존재하는지 확인
+        boolean hasLoginAnnotation = parameter.hasParameterAnnotation(Login.class);
         return hasLoginAnnotation && hasMemberType;
     }
-
+    //세션에 있는 member 객체를 찾아서 반환. 못찾으면 null 반환
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        //세션에 있는 member 객체를 찾아서 반환. 못찾으면 null 반환
+
 
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(false); //세션 자동생성 방지
         if (session == null) {
             return null;
         }
