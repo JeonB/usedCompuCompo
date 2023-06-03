@@ -1,5 +1,6 @@
 package jeonb.usedcompu.controller;
 
+import java.util.Date;
 import jeonb.usedcompu.annotation.Login;
 import jeonb.usedcompu.model.Member;
 import jeonb.usedcompu.model.SessionConstants;
@@ -141,4 +142,26 @@ public class MemberController {
         return memberService.editValidCheck(member, bindingResult);
     }
 
+    @GetMapping("/session-info")
+    public String sessionInfo(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "세션이 없습니다.";
+        }
+        // 세션 id와 저장된 객체 정보 출력
+        System.out.println(session.getId() + ", " + session.getAttribute("loginMember"));
+
+        //세션 데이터 출력
+        session.getAttributeNames().asIterator()
+                .forEachRemaining(name -> log.info("session name={}, value={}", name, session.getAttribute(name)));
+
+        log.info("sessionId={}", session.getId());
+        log.info("getMaxInactiveInterval={}", session.getMaxInactiveInterval());
+        log.info("creationTime={}", new Date(session.getCreationTime()));
+        log.info("lastAccessedTime={}", new Date(session.getLastAccessedTime()));
+        log.info("isNew={}", session.isNew());
+
+        return "세션 출력";
+
+    }
 }
