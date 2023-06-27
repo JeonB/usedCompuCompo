@@ -1,5 +1,6 @@
 package jeonb.usedcompu.service;
 
+import javax.servlet.http.HttpServletRequest;
 import jeonb.usedcompu.model.CompuPost;
 import jeonb.usedcompu.model.CompuPostFile;
 import jeonb.usedcompu.repository.CompuPostFileRepositoryMapper;
@@ -13,8 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +30,8 @@ public class CompuPostFileService {
     private final CompuPostFileRepositoryMapper compuPostFileMapper;
 
     @Value("${upload.directory}")
-    private String uploadDirectory;
+    private String upload_directory;
+
 
     @Autowired
     public CompuPostFileService(CompuPostFileRepositoryMapper compuPostFileMapper) {
@@ -44,18 +44,21 @@ public class CompuPostFileService {
      * @param compuPost    게시글 객체
      * @throws IOException 파일 저장 중에 I/O 오류가 발생한 경우
      */
-    public void save(CompuPost compuPost) throws IOException {
+    public void save(CompuPost compuPost,HttpServletRequest request) throws IOException {
 
         int order = 10;
         for (MultipartFile multipartFile : compuPost.getFileList()) {
-
             String filename = UUID.randomUUID() + "_" + order + "_" + multipartFile.getOriginalFilename();
-            FileUtil.save(uploadDirectory + filename, multipartFile.getBytes());
-            compuPostFileMapper.save(new CompuPostFile(compuPost.getId(), compuPost.getWriterEmail(), uploadDirectory, filename));
+             String uploadPath = request.getSession().getServletContext().getRealPath(upload_directory); // 저장할 파일 경로
+
+            FileUtil.save(uploadPath,filename, multipartFile.getBytes());
+            compuPostFileMapper.save(new CompuPostFile(compuPost.getId(), compuPost.getWriterEmail(),
+                    uploadPath, filename));
 
             order--;
         }
     }
+
 
     /**
      * 게시글 정보를 바탕으로 파일을 지우고 새로 씀
@@ -63,15 +66,14 @@ public class CompuPostFileService {
      * @param compuPost    게시글 객체
      * @throws IOException 파일 저장 중에 I/O 오류가 발생한 경우
      */
-    public void update(CompuPost compuPost) throws IOException {
-
+    public void update(CompuPost compuPost,HttpServletRequest request) throws IOException {
         List<CompuPostFile> byId = compuPostFileMapper.findById(compuPost.getId());
         int order = 10 - byId.size() -1;
 
         List<String> removeFileList = compuPost.getRemoveFileList();
         if(removeFileList != null){
             for (String removeFile : removeFileList) {
-                String temp = removeFile.replace("/compuPost/getImage/", "");
+                String temp = removeFile.replace(upload_directory, "");
                 temp = URLDecoder.decode(temp, "utf-8");
                 compuPostFileMapper.removeFile(compuPost.getId(), temp);
             }
@@ -81,15 +83,16 @@ public class CompuPostFileService {
             for (MultipartFile multipartFile : compuPost.getFileList()) {
                 UUID uuid = UUID.randomUUID();
                 String filename = uuid + "_" + order + "_" + multipartFile.getOriginalFilename();
-                Path savePath = Paths.get(uploadDirectory + filename).toAbsolutePath();
-
-                multipartFile.transferTo(savePath.toFile());
+                String uploadPath = request.getSession().getServletContext().getRealPath(upload_directory); // 저장할 파일 경로
+                String pathname = uploadPath + File.separator + filename;
+                multipartFile.transferTo(new File(pathname));
                 //MultipartFile.transferTo()는 요청 시점의 임시 파일을 로컬 파일 시스템에 영구적으로 복사하는 역할을 수행한다.
                 // 단 한번만 실행되며 두번째 실행부터는 성공을 보장할 수 없다.
                 //Embedded Tomcat을 컨테이너로 사용할 경우 DiskFileItem.write()가 실제 역할을 수행한다.
                 // I/O 사용을 최소화하기 위해 파일 이동을 시도하며, 이동이 불가능할 경우 파일 복사를 진행한다.
 
-                compuPostFileMapper.save(new CompuPostFile(compuPost.getId(), compuPost.getWriterEmail(), uploadDirectory, filename));
+                compuPostFileMapper.save(new CompuPostFile(compuPost.getId(), compuPost.getWriterEmail(),
+                        upload_directory, filename));
                 order--;
             }
         }

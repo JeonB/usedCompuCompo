@@ -1,5 +1,7 @@
 package jeonb.usedcompu.util;
 
+import java.nio.file.Path;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.InputStreamResource;
@@ -21,6 +23,7 @@ public class FileUtil {
     /** Logger 출력을 위한 객체 */
     private static final Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
 
+
     /**
      * 지정된 디렉토리 경로에 파일을 저장합니다.
      *
@@ -30,10 +33,22 @@ public class FileUtil {
      * @throws IOException 파일 저장 중에 I/O 오류가 발생한 경우
      */
     public static void save(String directoryPath, String filename, byte[] data) throws IOException {
+        // 디렉토리 생성
+        createDirectory(directoryPath);
+
         String pathname = directoryPath + File.separator + filename;
         File file = new File(pathname);
         FileCopyUtils.copy(data, file);
     }
+
+    private static void createDirectory(String directoryPath) throws IOException {
+        // 디렉토리 경로를 Path 객체로 변환
+        Path directory = Paths.get(directoryPath);
+
+        // 디렉토리 생성
+        Files.createDirectories(directory);
+    }
+
 
     /**
      * 파일(절대경로 포함)을 저장합니다.

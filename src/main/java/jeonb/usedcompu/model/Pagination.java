@@ -1,8 +1,11 @@
 package jeonb.usedcompu.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class Pagination {
 
     private CompuCategory category;
@@ -25,7 +28,6 @@ public class Pagination {
     private Integer next;
 
 
-
     public void setterProcess(){
         setPerFirstRow();
         setListStartNum();
@@ -34,19 +36,30 @@ public class Pagination {
         setNext();
     }
 
+    /**
+     * @param categoryName 카테고리 이름 - graphic, cpu, ram
+     *  파라미터에 맞는(대문자) Enum 상수 반환하는 메소드
+     */
     public void setCategory(String categoryName) {
-        CompuCategory categoryUpper = CompuCategory.valueOf(categoryName.toUpperCase());
-        this.category = categoryUpper;
+        this.category = CompuCategory.valueOf(categoryName.toUpperCase());
     }
 
-    public void setListLastNum(double totalPageCount) {
-        this.listLastNum = (int) Math.ceil(totalPageCount / this.perRows);
+    /**
+     * @param totalContentCount 전체 게시글 수
+     *  마지막 페이지의 번호 설정하는 메소드
+     */
+    public void setListLastNum(double totalContentCount) {
+        this.listLastNum = (int) Math.ceil(totalContentCount / this.perRows);
     }
 
+    
     private void setPerFirstRow() {
         this.perFirstRow = (this.page-1)*this.perRows;
     }
 
+    /**
+     *  각 페이지의 첫번째 게시글 번호를 설정하는 메소드
+     */
     private void setListStartNum() {
         //7페이지일때는 6~10페이지
         if(this.page % this.listLimit != 0){
@@ -56,6 +69,9 @@ public class Pagination {
         }
     }
 
+    /**
+     *  각 페이지의 마지막 게시글 번호를 설정하는 메소드
+     */
     private void setListEndNum() {
         //3페이지가 끝인데 5페이지까지 보이면 안됨
         this.listEndNum = this.listStartNum + this.listLimit -1;

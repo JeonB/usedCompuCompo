@@ -80,7 +80,7 @@ public class CompuPostController {
             compuPost.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentTime));
             
             compuPostMapper.save(compuPost);  //id저장됨
-            compuPostFileService.save(compuPost);
+            compuPostFileService.save(compuPost,request);
 
             String currentUrl = request.getRequestURL().toString();
             String redirectUrl = currentUrl.replace("/compuPost/write", "/compuPost/detail/"+compuPost.getId());
@@ -156,7 +156,7 @@ public class CompuPostController {
             }
 
             compuPostMapper.update(compuPost);
-            compuPostFileService.update(compuPost);
+            compuPostFileService.update(compuPost,request);
 
             String currentUrl = request.getRequestURL().toString();
             String redirectUrl = currentUrl.replace("/compuPost/edit", "/compuPost/detail/"+compuPost.getId());

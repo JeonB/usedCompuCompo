@@ -27,6 +27,7 @@ dependencies {
 
 	implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
 //	implementation 'com.oracle.database.jdbc:ojdbc11:21.3.0.0'
+//	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.33'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 
 	implementation 'commons-io:commons-io:2.11.0'

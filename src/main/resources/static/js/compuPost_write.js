@@ -39,7 +39,7 @@ $("#editorFormSubmit").click(function(event){
 //    }
 
     var url = "/compuPost/write";
-    if($(location).attr('href').includes("/edit") == true){
+    if($(location).attr('href').includes("/edit") === true){
         url = "/compuPost/edit";
     }
 

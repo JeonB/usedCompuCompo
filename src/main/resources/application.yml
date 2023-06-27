@@ -5,8 +5,6 @@ server:
       tracking-modes: cookie  #최초접속 시 url에 jsession안붙게
   port: 8084
 
-
-
 spring:
   datasource:
     url: jdbc:mariadb://localhost:5000/usedCompuCompo
@@ -24,4 +22,4 @@ mybatis:
   mapper-locations: mybatis/**.xml
 
 upload:
-  directory: C:/Users/jeon/Desktop/usedCompu/src/main/resources/templates/compuPost/getImage/
+  directory: upload/
