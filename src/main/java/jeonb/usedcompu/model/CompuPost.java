@@ -1,6 +1,9 @@
 package jeonb.usedcompu.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import lombok.Data;
@@ -13,13 +16,17 @@ import java.util.List;
 @Data
 @Entity
 public class CompuPost {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
+    @Column(length = 100)
     private String writerEmail;
 
     @NotBlank
+    @Column(length = 200)
     private String compuName;
 
     @NotNull //NotBlank는 String과 Collection타입에만 적용된다

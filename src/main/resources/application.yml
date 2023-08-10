@@ -11,6 +11,15 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: usedCompuRoot
     password: 1234
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDB103Dialect
+        format_sql: true
+        show_sql: true
+        hbm2ddl:
+          auto: update
+        physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   servlet:
     multipart:
       enabled: true
