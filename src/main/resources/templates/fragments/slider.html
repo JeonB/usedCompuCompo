@@ -12,17 +12,17 @@
 <body>
 
 
-<div class="swiper-cover" th:fragment="slider(swiperName, compuPostList)">
+<div class="swiper-cover" th:fragment="slider(swiperName, compuPostList, fileList)">
     <div class="swiper " th:id="${swiperName}">
         <div class="swiper-wrapper">
             <th:block th:each="compuPost : ${compuPostList}">
+                <th:block th:each="file : ${fileList}">
                 <div class="swiper-slide">
                     <div class="col">
                         <a class="card shadow-sm" th:href="@{'/compuPost/detail/'+${compuPost.id}}">
-                            <th:block th:each="file : ${fileList}">
-                            <img class="swiper-lazy" th:if="${compuPost.thumbFileName != null}"
-                                 th:src="@{'../..' + ${file.filePath} + '/' + ${file.fileName}}">
-                            </th:block>
+                                <img class="swiper-lazy" th:if="${compuPost.thumbFileName != null}"
+                                     th:src="@{${file.filePath} + '/' + ${file.fileName}}">
+
                             <img class="swiper-lazy" th:if="${compuPost.thumbFileName == null}"
                                  src="https://plchldr.co/i/245x180">
                             <div class="card-body" style="padding:0.5rem;">
@@ -34,6 +34,7 @@
                         </a>
                     </div>
                 </div>
+                </th:block>
             </th:block>
         </div>
     </div>

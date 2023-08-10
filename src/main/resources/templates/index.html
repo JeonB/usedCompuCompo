@@ -28,17 +28,16 @@
 
 <div class="container">
     <div class="indexSlider mt-5">
-
         <h3 style="font-weight:bold; user-select:none;">그래픽카드</h3>
-        <div th:replace="fragments/slider :: slider('swiperA', ${graphicList})"></div>
+        <div th:replace="fragments/slider :: slider('swiperA', ${graphicList},${graphicFileList})"></div>
     </div>
     <div class="indexSlider mt-5">
         <h3 style="font-weight:bold; user-select:none;">CPU</h3>
-        <div th:replace="fragments/slider :: slider('swiperB', ${cpuList})"></div>
+        <div th:replace="fragments/slider :: slider('swiperB', ${cpuList},${cpuFileList})"></div>
     </div>
     <div class="indexSlider mt-5">
         <h3 style="font-weight:bold; user-select:none;">RAM</h3>
-        <div th:replace="fragments/slider :: slider('swiperC', ${ramList})"></div>
+        <div th:replace="fragments/slider :: slider('swiperC', ${ramList},${ramFileList})"></div>
     </div>
 </div>
 

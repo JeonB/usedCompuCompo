@@ -1,5 +1,6 @@
 package jeonb.usedcompu.controller;
 
+import java.util.ArrayList;
 import jeonb.usedcompu.model.*;
 import jeonb.usedcompu.repository.CommentRepositoryMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -43,18 +44,20 @@ public class HomeController {
 
         for (CompuCategory category : categories) {
             List<CompuPost> compuPostList = compuPostMapper.getIndexList(category.toString());
-
+            List<CompuPostFile> compuPostFileList = new ArrayList<>();
             for (CompuPost compuPost : compuPostList) {
                 CompuPostFile oneFile = compuPostFileMapper.getOneFile(compuPost.getId());
                 if(oneFile == null){
                     compuPost.setThumbFileName(null);
                 }else{
                     compuPost.setThumbFileName(oneFile.getFileName());
+                    compuPostFileList.add(oneFile);
                 }
 
             }
 
             model.addAttribute(category.getLowerCase()+"List", compuPostList);
+            model.addAttribute(category.getLowerCase()+"FileList",compuPostFileList);
             //System.out.println(result.get(category.getLowerCase()+"FileList"));
         }
 

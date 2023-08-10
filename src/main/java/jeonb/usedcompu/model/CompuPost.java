@@ -1,5 +1,8 @@
 package jeonb.usedcompu.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import lombok.Data;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -8,11 +11,12 @@ import javax.validation.constraints.*;
 import java.util.List;
 
 @Data
+@Entity
 public class CompuPost {
-
+    @Id
     private Long id;
 
-    //@NotBlank
+    @NotBlank
     private String writerEmail;
 
     @NotBlank
@@ -28,12 +32,14 @@ public class CompuPost {
     @NotBlank
     private String compuDescription;
 
+    @Transient
     private List<MultipartFile> fileList;
 
     private String createTime;
 
     private Integer viewCount=0;
 
+    @Transient
     private List<String> removeFileList;
 
     private Integer commentCount;
