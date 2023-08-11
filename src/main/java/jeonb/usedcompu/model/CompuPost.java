@@ -2,6 +2,8 @@ package jeonb.usedcompu.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,6 +32,7 @@ public class CompuPost {
     private String compuName;
 
     @NotNull //NotBlank는 String과 Collection타입에만 적용된다
+    @Enumerated(EnumType.STRING)
     private CompuCategory compuCategory;
 
     @NotNull //NotBlank는 String과 Collection타입에만 적용된다

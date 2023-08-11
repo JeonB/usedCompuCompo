@@ -5,6 +5,7 @@ import jeonb.usedcompu.model.CompuPost;
 import jeonb.usedcompu.model.CompuPostFile;
 import jeonb.usedcompu.model.Member;
 import jeonb.usedcompu.repository.CommentRepositoryMapper;
+import jeonb.usedcompu.repository.PostRepository;
 import jeonb.usedcompu.service.CompuPostFileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +38,17 @@ public class CompuPostController {
     private final CompuPostFileRepositoryMapper compuPostFileMapper;
     private final CommentRepositoryMapper commentMapper;
     private final CompuPostFileService compuPostFileService;
+    private final PostRepository postRepository;
 
     @Autowired
-    public CompuPostController(CompuPostService compuPostService, CompuPostRepositoryMapper compuPostMapper, CompuPostFileRepositoryMapper compuPostFileMapper, CommentRepositoryMapper commentMapper, CompuPostFileService compuPostFileService) {
+    public CompuPostController(CompuPostService compuPostService, CompuPostRepositoryMapper compuPostMapper, CompuPostFileRepositoryMapper compuPostFileMapper, CommentRepositoryMapper commentMapper, CompuPostFileService compuPostFileService,
+            PostRepository postRepository) {
         this.compuPostService = compuPostService;
         this.compuPostMapper = compuPostMapper;
         this.compuPostFileMapper = compuPostFileMapper;
         this.commentMapper = commentMapper;
         this.compuPostFileService = compuPostFileService;
+        this.postRepository = postRepository;
     }
 
     @GetMapping("/write")
@@ -79,8 +83,9 @@ public class CompuPostController {
             Date currentTime = new Date();
             compuPost.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentTime));
             
-            compuPostMapper.save(compuPost);  //id저장됨
-            compuPostFileService.save(compuPost,request);
+//            compuPostMapper.save(compuPost);  //id저장됨
+//            compuPostFileService.save(compuPost,request);
+            postRepository.save(compuPost);
 
             String currentUrl = request.getRequestURL().toString();
             String redirectUrl = currentUrl.replace("/compuPost/write", "/compuPost/detail/"+compuPost.getId());

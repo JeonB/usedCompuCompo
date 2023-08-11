@@ -19,10 +19,17 @@ import java.util.List;
 @RequestMapping("/category")
 public class CategoryController {
 
-    @Autowired CompuPostRepositoryMapper compuPostMapper;
-    @Autowired CompuPostService compuPostService;
-    @Autowired
+    CompuPostRepositoryMapper compuPostMapper;
+    CompuPostService compuPostService;
     CommentRepositoryMapper commentMapper;
+
+    @Autowired
+    public CategoryController(CompuPostRepositoryMapper compuPostMapper,
+            CompuPostService compuPostService, CommentRepositoryMapper commentMapper) {
+        this.compuPostMapper = compuPostMapper;
+        this.compuPostService = compuPostService;
+        this.commentMapper = commentMapper;
+    }
 
     @GetMapping("/{categoryName}")
     public String category(@PathVariable String categoryName, @ModelAttribute Pagination pagination, Model model){
