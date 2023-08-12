@@ -33,6 +33,7 @@ import java.util.Map;
 @RequestMapping("/compuPost")
 public class CompuPostController {
 
+    // TODO: 2023-08-12 기존 CRUD 메소드를 JPA로 대체하기
     private final CompuPostService compuPostService;
     private final CompuPostRepositoryMapper compuPostMapper;
     private final CompuPostFileRepositoryMapper compuPostFileMapper;
@@ -84,8 +85,8 @@ public class CompuPostController {
             compuPost.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentTime));
             
 //            compuPostMapper.save(compuPost);  //id저장됨
-//            compuPostFileService.save(compuPost,request);
             postRepository.save(compuPost);
+            compuPostFileService.save(compuPost,request);
 
             String currentUrl = request.getRequestURL().toString();
             String redirectUrl = currentUrl.replace("/compuPost/write", "/compuPost/detail/"+compuPost.getId());
@@ -160,8 +161,10 @@ public class CompuPostController {
                 compuPost.setWriterEmail("익명@admin");
             }
 
-            compuPostMapper.update(compuPost);
+//            compuPostMapper.update(compuPost);
+            postRepository.save(compuPost);
             compuPostFileService.update(compuPost,request);
+
 
             String currentUrl = request.getRequestURL().toString();
             String redirectUrl = currentUrl.replace("/compuPost/edit", "/compuPost/detail/"+compuPost.getId());
