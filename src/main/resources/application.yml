@@ -31,4 +31,4 @@ mybatis:
   mapper-locations: mybatis/**.xml
 
 upload:
-  directory: upload/
+  directory: C:/Users/jeon/IdeaProjects/usedCompuCompo/src/main/resources/static/upload

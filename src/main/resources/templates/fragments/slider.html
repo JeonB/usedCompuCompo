@@ -21,7 +21,8 @@
                     <div class="col">
                         <a class="card shadow-sm" th:href="@{'/compuPost/detail/'+${compuPost.id}}">
                                 <img class="swiper-lazy" th:if="${compuPost.thumbFileName != null}"
-                                     th:src="@{${file.filePath} + '/' + ${file.fileName}}">
+                                     th:src="@{/upload/{fileName}(fileName=${file.fileName})}">
+
 
                             <img class="swiper-lazy" th:if="${compuPost.thumbFileName == null}"
                                  src="https://plchldr.co/i/245x180">
@@ -60,7 +61,8 @@
     <div class="swiper" th:id="${swiperId}">
         <div class="swiper-wrapper">
             <div class="swiper-slide card shadow-sm" th:each="file : ${fileList}">
-                <img class="slideImg" th:src="@{'../..' + ${file.filePath} + '/' + ${file.fileName}}">
+                <img class="slideImg" th:src="@{/upload/{fileName}(fileName=${file.fileName})}">
+
             </div>
         </div>
     </div>
@@ -72,7 +74,8 @@
         <div class="swiper" th:id="${swiperId}">
             <div class="swiper-wrapper">
                 <div class="swiper-slide card shadow-sm" th:each="file : ${fileList}">
-                    <img class="slideImg" th:src="@{'../..' + ${file.filePath} + '/' + ${file.fileName}}">
+                    <img class="slideImg" th:src="@{/upload/{fileName}(fileName=${file.fileName})}">
+
                 </div>
             </div>
         </div>
@@ -113,7 +116,7 @@
                     <div th:id="'removeSlide-'+${swiperName}" class="removeSlideImg">
                         <i class="fas fa-times"></i>
                     </div>
-                    <img class="slideImg" th:src="@{'../..' + ${file.filePath} + '/' + ${file.fileName}}">
+                    <img class="slideImg" th:src="@{/upload/{fileName}(fileName=${file.fileName})}">
                 </div>
             </th:block>
 
@@ -129,8 +132,7 @@
 
                 <th:block th:if="${fileList} != null">  <!--/* 수정 시 */-->
                     <div class="swiper-slide card shadow-sm" th:each="file : ${fileList}">
-                        <img class="slideImg"
-                             th:src="@{'../..' + ${file.filePath} + '/' + ${file.fileName}}">
+                        <img class="slideImg" th:src="@{/upload/{fileName}(fileName=${file.fileName})}">
                     </div>
                 </th:block>
 

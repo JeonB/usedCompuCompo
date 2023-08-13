@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import jeonb.usedcompu.model.CompuPost;
 import jeonb.usedcompu.model.CompuPostFile;
 import jeonb.usedcompu.repository.CompuPostFileRepositoryMapper;
+import jeonb.usedcompu.repository.PostFileRepository;
+import jeonb.usedcompu.repository.PostRepository;
 import jeonb.usedcompu.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,14 +30,19 @@ public class CompuPostFileService {
      * 첨부파일 영속성 매퍼
      */
     private final CompuPostFileRepositoryMapper compuPostFileMapper;
+    private final PostRepository postRepository;
+    private final PostFileRepository postFileRepository;
 
     @Value("${upload.directory}")
     private String upload_directory;
 
 
     @Autowired
-    public CompuPostFileService(CompuPostFileRepositoryMapper compuPostFileMapper) {
+    public CompuPostFileService(CompuPostFileRepositoryMapper compuPostFileMapper,
+            PostRepository postRepository, PostFileRepository postFileRepository) {
         this.compuPostFileMapper = compuPostFileMapper;
+        this.postRepository = postRepository;
+        this.postFileRepository = postFileRepository;
     }
 
     /**
@@ -44,17 +51,18 @@ public class CompuPostFileService {
      * @param compuPost    게시글 객체
      * @throws IOException 파일 저장 중에 I/O 오류가 발생한 경우
      */
-    public void save(CompuPost compuPost,HttpServletRequest request) throws IOException {
+    public void save(CompuPost compuPost) throws IOException {
 
         int order = 10;
         for (MultipartFile multipartFile : compuPost.getFileList()) {
             String filename = UUID.randomUUID() + "_" + order + "_" + multipartFile.getOriginalFilename();
-             String uploadPath = request.getSession().getServletContext().getRealPath(upload_directory); // 저장할 파일 경로
+             String uploadPath = upload_directory; // 저장할 파일 경로
 
             FileUtil.save(uploadPath,filename, multipartFile.getBytes());
-            compuPostFileMapper.save(new CompuPostFile(compuPost.getId(), compuPost.getWriterEmail(),
+//            compuPostFileMapper.save(new CompuPostFile(compuPost.getId(), compuPost.getWriterEmail(),
+//                    uploadPath, filename));
+            postFileRepository.save(new CompuPostFile(compuPost.getId(), compuPost.getWriterEmail(),
                     uploadPath, filename));
-
             order--;
         }
     }

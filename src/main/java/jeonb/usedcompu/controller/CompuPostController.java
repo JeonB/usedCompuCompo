@@ -86,7 +86,7 @@ public class CompuPostController {
             
 //            compuPostMapper.save(compuPost);  //id저장됨
             postRepository.save(compuPost);
-            compuPostFileService.save(compuPost,request);
+            compuPostFileService.save(compuPost);
 
             String currentUrl = request.getRequestURL().toString();
             String redirectUrl = currentUrl.replace("/compuPost/write", "/compuPost/detail/"+compuPost.getId());
