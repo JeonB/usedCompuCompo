@@ -1,10 +1,12 @@
 package jeonb.usedcompu.controller;
 
+import java.util.Optional;
 import jeonb.usedcompu.annotation.Login;
 import jeonb.usedcompu.model.CompuPost;
 import jeonb.usedcompu.model.CompuPostFile;
 import jeonb.usedcompu.model.Member;
 import jeonb.usedcompu.repository.CommentRepositoryMapper;
+import jeonb.usedcompu.repository.PostFileRepository;
 import jeonb.usedcompu.repository.PostRepository;
 import jeonb.usedcompu.service.CompuPostFileService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,23 +35,24 @@ import java.util.Map;
 @RequestMapping("/compuPost")
 public class CompuPostController {
 
-    // TODO: 2023-08-12 기존 CRUD 메소드를 JPA로 대체하기
     private final CompuPostService compuPostService;
     private final CompuPostRepositoryMapper compuPostMapper;
     private final CompuPostFileRepositoryMapper compuPostFileMapper;
     private final CommentRepositoryMapper commentMapper;
     private final CompuPostFileService compuPostFileService;
     private final PostRepository postRepository;
+    private final PostFileRepository postFileRepository;
 
     @Autowired
     public CompuPostController(CompuPostService compuPostService, CompuPostRepositoryMapper compuPostMapper, CompuPostFileRepositoryMapper compuPostFileMapper, CommentRepositoryMapper commentMapper, CompuPostFileService compuPostFileService,
-            PostRepository postRepository) {
+            PostRepository postRepository, PostFileRepository postFileRepository) {
         this.compuPostService = compuPostService;
         this.compuPostMapper = compuPostMapper;
         this.compuPostFileMapper = compuPostFileMapper;
         this.commentMapper = commentMapper;
         this.compuPostFileService = compuPostFileService;
         this.postRepository = postRepository;
+        this.postFileRepository = postFileRepository;
     }
 
     @GetMapping("/write")
@@ -127,11 +130,15 @@ public class CompuPostController {
 
     @GetMapping("/edit/{compuPostId}")
     public String edit(@PathVariable Long compuPostId, Model model){
-        CompuPost byId = compuPostMapper.findById(compuPostId);
-        model.addAttribute("compuPost", byId);
+//        CompuPost byId = compuPostMapper.findById(compuPostId);  JPA대체
+        Optional<CompuPost> byId = postRepository.findById(compuPostId);
+        if(byId.isPresent()){
+            model.addAttribute("compuPost", byId.get());
 
-        List<CompuPostFile> byIdFile = compuPostFileMapper.findById(compuPostId);
-        model.addAttribute("fileList", byIdFile);
+//            List<CompuPostFile> byIdFile = compuPostFileMapper.findById(compuPostId);
+            List<CompuPostFile> byIdFile = postFileRepository.findAllByCompuPostId(compuPostId);
+            model.addAttribute("fileList", byIdFile);
+        }
 
         return "compuPost/write";
     }
@@ -141,8 +148,8 @@ public class CompuPostController {
                          HttpServletRequest request, @Login Member loginMember) throws IOException {
         Map<String, Object> response = new HashMap<>();
 
-        List<CompuPostFile> byId = compuPostFileMapper.findById(compuPost.getId());
-
+//        List<CompuPostFile> byId = compuPostFileMapper.findById(compuPost.getId());
+        List<CompuPostFile> byId = postFileRepository.findAllByCompuPostId(compuPost.getId());
         if(byId.size() > 10){
             response.put("status", "validPhoto");
             response.put("response", "사진은 10개까지만 업로드 가능합니다.");
@@ -163,7 +170,7 @@ public class CompuPostController {
 
 //            compuPostMapper.update(compuPost);
             postRepository.save(compuPost);
-            compuPostFileService.update(compuPost,request);
+            compuPostFileService.update(compuPost);
 
 
             String currentUrl = request.getRequestURL().toString();
@@ -179,14 +186,15 @@ public class CompuPostController {
     @GetMapping("/remove/{compuPostId}")
     public String remove(@PathVariable Long compuPostId){
 
-        CompuPost byId = compuPostMapper.findById(compuPostId);
-
+//        CompuPost byId = compuPostMapper.findById(compuPostId);
+        Optional<CompuPost> byId = postRepository.findById(compuPostId);
         compuPostFileService.delete(compuPostId);
 
-        int deletePost = compuPostMapper.delete(compuPostId);
+//        int deletePost = compuPostMapper.delete(compuPostId);
 
-        if(deletePost == 1 ){
-            return "redirect:/category/"+byId.getCompuCategory().getLowerCase();
+        if( byId.isPresent()){
+            postRepository.deleteById(compuPostId);
+            return "redirect:/category/"+byId.get().getCompuCategory().getLowerCase();
         }
         return null;
     }

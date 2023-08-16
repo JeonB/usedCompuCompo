@@ -96,7 +96,6 @@ create table compupostfile
     primary key,
   compupostid bigint      not null,
   writeremail varchar(50) not null,
-  filepath    text        not null,
   filename    text        not null,
   constraint FK_compupostfile_compupost
     foreign key (compupostid) references compupost (id)

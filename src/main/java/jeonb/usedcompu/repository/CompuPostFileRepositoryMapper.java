@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface CompuPostFileRepositoryMapper {
 
-    @Insert("insert into compupostfile(compupostid, writeremail, filepath, filename) " +
+    @Insert("insert into compupostfile(compupostid, writeremail, filename) " +
             "values(#{compuPostId}, #{writerEmail}, #{filePath}, #{fileName})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void save(CompuPostFile compuPostFile);
