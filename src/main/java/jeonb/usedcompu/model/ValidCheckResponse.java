@@ -1,10 +1,12 @@
 package jeonb.usedcompu.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
 @AllArgsConstructor
+@Getter
+@Setter
 public class ValidCheckResponse {
 
     private Boolean status;
