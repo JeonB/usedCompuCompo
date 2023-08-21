@@ -112,7 +112,7 @@ create table compupostfile
 --
 
 LOCK TABLES `compupostfile` WRITE;
-INSERT INTO `compupostfile` VALUES (1,1,'익명@admin','C:\\project\\usedcompu\\uploadImg','b11c3f9c-ff6f-4546-900c-4a28efea70ea_10_캡처.JPG'),(2,2,'익명@admin','C:\\project\\usedcompu\\uploadImg','b11c3f9c-ff6f-4546-900c-4a28efea70ea_10_캡처.JPG'),(3,3,'익명@admin','C:\\project\\usedcompu\\uploadImg','b11c3f9c-ff6f-4546-900c-4a28efea70ea_10_캡처.JPG');
+INSERT INTO `compupostfile` VALUES (1,1,'익명@admin','b11c3f9c-ff6f-4546-900c-4a28efea70ea_10_캡처.JPG'),(2,2,'익명@admin','b11c3f9c-ff6f-4546-900c-4a28efea70ea_10_캡처.JPG'),(3,3,'익명@admin','b11c3f9c-ff6f-4546-900c-4a28efea70ea_10_캡처.JPG');
 UNLOCK TABLES;
 
 --
