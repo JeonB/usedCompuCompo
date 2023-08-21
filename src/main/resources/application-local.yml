@@ -1,0 +1,34 @@
+server:
+  servlet:
+    session:
+      timeout: 30m  # 기본값은 30m(30분) m을 붙이지 않으면 초단위로 설정됨. 최소 60초 이상일 것
+      tracking-modes: cookie  #최초접속 시 url에 jsession안붙게
+  port: 8084
+
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/usedCompuCompo
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: usedCompuRoot
+    password: 1234
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDB103Dialect
+        format_sql: true
+        show_sql: true
+        hbm2ddl:
+          auto: update
+        physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  servlet:
+    multipart:
+      enabled: true
+      maxFileSize: 30MB     #파일의 최대 사이즈
+      maxRequestSize: 30MB  #요청한 최대 사이즈
+
+mybatis:
+  type-aliases-package: jeonb.usedcompu.model
+  mapper-locations: mybatis/**.xml
+
+upload:
+  directory: C:/Users/jeon/IdeaProjects/usedCompuCompo/src/main/resources/static/upload
