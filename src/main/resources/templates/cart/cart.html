@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>장바구니</title>
+  <!-- Bootstrap icons-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="/css/cart.css" rel="stylesheet" />
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:replace="/fragment/navigation :: menu(${user})">
+
+</nav>
+
+<div class="container-fluid mt-3">
+  <div class="row">
+
+    <!-- SIDE BAR -->
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" th:replace="/fragment/navigation :: side(${user})">
+
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">장바구니</h1>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+          <tr>
+            <th scope="col">번호</th>
+            <th scope="col">상품ID</th>
+            <th scope="col">상품명</th>
+            <th scope="col">수량</th>
+            <th scope="col">가격</th>
+            <th scope="col">담은날짜</th>
+            <th scope="col">삭제</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="cart_item, i : ${cart_itemList}">
+            <td th:text="${i.count}">1</td>
+            <td th:text="${cart_item.getItem().getId()}">3번상품</td>
+            <td>
+              <a th:href="@{/item/view/{id}(id=${cart_item.item.id})}"
+                 th:text="${cart_item.getItem().getName()}"></a>
+            </td>
+            <td th:text="${cart_item.getCount()}">수량</td>
+            <td th:text="${cart_item.getItem().getPrice() * cart_item.getCount()}">가격</td>
+            <td th:text="${cart_item.getCreateDate()}">날짜</td>
+            <td class="btn btn-outline-dark"><a th:href="@{/user/{id}/cart/{cart_itemId}/delete(id=${cart_item.getCart().getUser().id}, cart_itemId=${cart_item.getId()})}" style="text-decoration: none">삭제</a></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
+
+
+
+      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center mt-3">
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+              <h4 class="my-0 fw-normal">총 결제금액</h4>
+            </div>
+            <form class="card-body" th:action="@{/user/{id}/cart/checkout(id=${user.getId()})}" method="post">
+              <h1 class="card-title pricing-card-title" th:text="${totalPrice} + '₩'">$0</h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>잘못 담은 물건이 있는지 확인해보세요!</li>
+              </ul>
+              <button type="submit" class="w-100 btn btn-lg btn-outline-primary">구매하기</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
+</body>
+</html>
