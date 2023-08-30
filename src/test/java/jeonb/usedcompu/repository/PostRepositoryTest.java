@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import jeonb.usedcompu.model.CompuCategory;
-import jeonb.usedcompu.model.CompuPost;
+import jeonb.usedcompu.entity.CompuPost;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

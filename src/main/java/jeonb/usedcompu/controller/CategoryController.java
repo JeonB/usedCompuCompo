@@ -1,7 +1,7 @@
 package jeonb.usedcompu.controller;
 
 import jeonb.usedcompu.model.Comment;
-import jeonb.usedcompu.model.CompuPost;
+import jeonb.usedcompu.entity.CompuPost;
 import jeonb.usedcompu.model.Pagination;
 import jeonb.usedcompu.repository.CommentRepositoryMapper;
 import lombok.extern.slf4j.Slf4j;

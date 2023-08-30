@@ -1,15 +1,14 @@
 package jeonb.usedcompu.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-import jeonb.usedcompu.model.CompuPost;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,7 +27,6 @@ public class Cart {
 
     private Long compuPostId;
 
-    @OneToOne
-    @JoinColumn(name = "compuPostId",referencedColumnName = "id", insertable = false, updatable = false)
-    private CompuPost compuPost;
+    @OneToMany(mappedBy = "cart")
+    private List<CompuPost> posts =  new ArrayList<>();
 }
