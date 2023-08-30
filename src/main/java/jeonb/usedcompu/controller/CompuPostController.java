@@ -2,7 +2,7 @@ package jeonb.usedcompu.controller;
 
 import java.util.Optional;
 import jeonb.usedcompu.annotation.Login;
-import jeonb.usedcompu.model.CompuPost;
+import jeonb.usedcompu.entity.CompuPost;
 import jeonb.usedcompu.model.CompuPostFile;
 import jeonb.usedcompu.model.Member;
 import jeonb.usedcompu.repository.CommentRepositoryMapper;

@@ -1,6 +1,6 @@
 package jeonb.usedcompu.service;
 
-import jeonb.usedcompu.model.CompuPost;
+import jeonb.usedcompu.entity.CompuPost;
 import jeonb.usedcompu.model.CompuPostFile;
 import jeonb.usedcompu.repository.CompuPostFileRepositoryMapper;
 import jeonb.usedcompu.repository.PostFileRepository;

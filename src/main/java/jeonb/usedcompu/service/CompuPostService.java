@@ -1,6 +1,6 @@
 package jeonb.usedcompu.service;
 
-import jeonb.usedcompu.model.CompuPost;
+import jeonb.usedcompu.entity.CompuPost;
 import jeonb.usedcompu.model.Pagination;
 import jeonb.usedcompu.model.ValidCheckResponse;
 import jeonb.usedcompu.repository.CompuPostRepositoryMapper;

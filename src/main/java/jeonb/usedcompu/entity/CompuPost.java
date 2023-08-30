@@ -1,4 +1,4 @@
-package jeonb.usedcompu.model;
+package jeonb.usedcompu.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +7,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
+import jeonb.usedcompu.model.CompuCategory;
 import lombok.Data;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -55,4 +58,8 @@ public class CompuPost {
     private Integer commentCount;
 
     private String thumbFileName;
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 }
